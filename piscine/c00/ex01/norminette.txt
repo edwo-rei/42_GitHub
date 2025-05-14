@@ -1,0 +1,2 @@
+ft_print_alphabet.c: Error!
+Error: SPACE_EMPTY_LINE     (line:  18, col:   1):	Space on empty line
