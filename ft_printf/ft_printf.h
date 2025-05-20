@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:50:20 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/05/19 19:03:05 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/05/20 13:43:44 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,8 @@
 
 int		ft_printf(const char *str, ...);
 int		ft_printchar(char c);
+int		ft_printstr(char *str);
+int		ft_printint(int	n);
+int		ft_printunint(unsigned int n);
 
 #endif

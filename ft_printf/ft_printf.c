@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 17:03:22 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/05/19 19:24:44 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/05/20 13:43:02 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,17 @@ int	check_format(char type, va_list args)
 	if (type == 'c')
 		count += ft_printchar(va_arg(args, int));//int, not char, b/c char is automatically promoted
 	else if (type == 's')
-		count += print_str(va_arg(args, char *));
-	else if (type == 'p')
-		count += print_ptr(va_arg(args, unsigned long long));
-	else if (type == 'd')
-		count += print_int(va_arg(args, int));
-	else if (type == 'i')
-		count += print_int(va_arg(args, int));
+		count += ft_printstr(va_arg(args, char *));
+	/*else if (type == 'p')
+		count += print_ptr(va_arg(args, unsigned long long));*/
+	else if (type == 'd' || type == 'i')
+		count += ft_printint(va_arg(args, int));
 	else if (type == 'u')
-		count += print_int(va_arg(args, unsigned int));
-	else if (type == 'x')
+		count += ft_printunint(va_arg(args, unsigned int));
+	/*else if (type == 'x')
 		count += print_int(va_arg(args, unsigned int));
 	else if (type == 'X')
-		count += print_int(va_arg(args, unsigned int));
+		count += print_int(va_arg(args, unsigned int));*/
 	else if (type == '%')
 		count += write(1, "%", 1);
 	return (count);
@@ -49,7 +47,7 @@ int	ft_printf(const char *str, ...)
 	while(*str)
 	{
 		if (*str != '%')
-			count += write(1, str, 1);//assuming use of prt & not index
+			count += write(1, str, 1);//assuming use of ptr & not index
 		else
 			count += check_format(*++str, args);//helper function for % using va_arg, ++str
 		str++;
@@ -61,11 +59,13 @@ int	ft_printf(const char *str, ...)
 
 int	main(void)
 {
-	int	result;
-	char	str[] = "%you";
+	int		result;
+	unsigned int	n;
+	char		str[] = "John Jacob Jingleheimer Schmidt";
 
-	/*result = ft_printf("Hello, %s\n", str);
-	ft_printf("ft_printf return value: %i\n", result);*/
-	result = printf("Hello, %k\n", str);
+	n = 4294967295;
+	result = ft_printf("Hello, %s, I've seen you %u times\n", str, n);
+	printf("ft_printf return value: %i\n", result);
+	result = printf("Hello, %s, I've seen you %u times\n", str, n);
 	printf("printf return value: %i\n", result);
 }

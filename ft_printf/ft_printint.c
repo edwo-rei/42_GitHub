@@ -1,29 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printchar.c                                     :+:      :+:    :+:   */
+/*   ft_printint.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/19 18:48:42 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/05/20 10:48:17 by edwo-rei         ###   ########.fr       */
+/*   Created: 2025/05/20 12:23:29 by edwo-rei          #+#    #+#             */
+/*   Updated: 2025/05/20 12:44:27 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printchar(char c)
+int	ft_printint(int n)
 {
-	return (write(1, &c, 1));
+	char	reverse[12];
+	int		i;
+	int		count;
+	long	ln;
+
+	i = 0;
+	count = 0;
+	ln = n;
+	if (ln == 0)
+		count += write(1, "0", 1);
+	if (ln < 0)
+	{
+		count += write(1, "-", 1);
+		ln *= -1;
+	}
+	while (ln != 0)
+	{
+		reverse[i++] = (ln % 10) + 48;
+		ln /= 10;
+	}
+	while (i > 0)
+		count += write(1, &reverse[--i], 1);
+	return (count);
 }
-/*return value of succesful write = # of chars written
+/*
 int	main(void)
 {
-	char	c;
+	int	n;
 	int	result;
 
-	c = 'c';
-	result = ft_printchar(c);
+	n = -2147483648;
+	result = ft_printint(n);
 	write(1, "\n", 1);
 	printf("return value: %i\n", result);
+	result = printf("%i\n", n);
+	printf("printf return value: %i\n", result);
 }*/
