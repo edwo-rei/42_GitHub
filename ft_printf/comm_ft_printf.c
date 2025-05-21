@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 17:03:22 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/05/21 19:54:49 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/05/21 19:49:49 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	check_format(char type, va_list args)
 
 	count = 0;
 	if (type == 'c')
-		count += ft_printchar(va_arg(args, int));
+		count += ft_printchar(va_arg(args, int));//int, not char, b/c char is automatically promoted
 	else if (type == 's')
 		count += ft_printstr(va_arg(args, char *));
 	else if (type == 'p')
@@ -36,23 +36,25 @@ static int	check_format(char type, va_list args)
 
 int	ft_printf(const char *str, ...)
 {
-	int		count;
+	int	count;
 	va_list	args;
 
+	//initialize va_list
 	va_start(args, str);
 	count = 0;
-	while (*str)
+	while(*str)
 	{
 		if (*str != '%')
-			count += write(1, str, 1);
+			count += write(1, str, 1);//assuming use of ptr & not index
 		else
-			count += check_format(*++str, args);
+			count += check_format(*++str, args);//helper function for % using va_arg, ++str
 		str++;
 	}
+	//call va_end once done processing list
 	va_end(args);
-	return (count);
+	return (count);//return # of chars of outpust str
 }
-/*
+
 int	main(void)
 {
 	int		result;
@@ -63,4 +65,4 @@ int	main(void)
 	printf("ft_printf return value: %i\n", result);
 	result = printf("Hello, %s, your location is %p\n", str, str);
 	printf("printf return value: %i\n", result);
-}*/
+}

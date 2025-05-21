@@ -6,20 +6,23 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 19:15:21 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/05/20 11:32:48 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/05/21 20:22:28 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+//added protection against NULL str ptr, will outpur "(null)" to warn user
 int	ft_printstr(char *str)
 {
 	int	i;
 
-	i  = 0;
+	i = 0;
+	if (!str)
+		str = "(null)";
 	while (str[i])
 	{
-		ft_printchar(str[i]);
+		write(1, &str[i], 1);
 		i++;
 	}
 	return (i);
@@ -27,9 +30,10 @@ int	ft_printstr(char *str)
 /*
 int	main(void)
 {
-	char	str[] = "Test string";
+	char	*str;
 	int	result;
 
+	str = NULL;
 	result = ft_printstr(str);
 	write(1, "\n", 1);
 	printf("return value: %i\n", result);

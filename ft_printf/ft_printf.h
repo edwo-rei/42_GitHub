@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:50:20 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/05/21 13:42:35 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/05/21 20:03:28 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,17 @@
 # include <stdlib.h>
 //unistd library contains write
 # include <unistd.h>
+//stdint.h contains value type uintptr_t, used to print ptr addresses
+# include <stdint.h>
 //stdio library contains the established printf, which I'll compare to my printf
 # include <stdio.h>
 
 int		ft_printf(const char *str, ...);
 int		ft_printchar(char c);
 int		ft_printstr(char *str);
-int		ft_printint(int	n);
+int		ft_printint(int n);
 int		ft_printunint(unsigned int n);
 int		ft_printhex(unsigned int n, char c);
+int		ft_printptr(uintptr_t ptr);
 
 #endif
