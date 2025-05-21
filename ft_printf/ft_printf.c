@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 17:03:22 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/05/20 13:43:02 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/05/21 13:56:00 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,8 @@ int	check_format(char type, va_list args)
 		count += ft_printint(va_arg(args, int));
 	else if (type == 'u')
 		count += ft_printunint(va_arg(args, unsigned int));
-	/*else if (type == 'x')
-		count += print_int(va_arg(args, unsigned int));
-	else if (type == 'X')
-		count += print_int(va_arg(args, unsigned int));*/
+	else if (type == 'x' || type == 'X')
+		count += ft_printhex(va_arg(args, unsigned int), type);
 	else if (type == '%')
 		count += write(1, "%", 1);
 	return (count);
@@ -64,8 +62,8 @@ int	main(void)
 	char		str[] = "John Jacob Jingleheimer Schmidt";
 
 	n = 4294967295;
-	result = ft_printf("Hello, %s, I've seen you %u times\n", str, n);
+	result = ft_printf("Hello, %s, I've seen you %x times\n", str, n);
 	printf("ft_printf return value: %i\n", result);
-	result = printf("Hello, %s, I've seen you %u times\n", str, n);
+	result = printf("Hello, %s, I've seen you %x times\n", str, n);
 	printf("printf return value: %i\n", result);
 }
