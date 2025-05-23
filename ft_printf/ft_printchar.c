@@ -16,7 +16,8 @@ int	ft_printchar(char c)
 {
 	return (write(1, &c, 1));
 }
-/*return value of succesful write = # of chars written
+/*
+//return value of succesful write = # of chars written
 int	main(void)
 {
 	char	c;

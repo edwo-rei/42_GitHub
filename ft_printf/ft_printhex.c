@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-/*may need to change int to long long for ptr. Divide by 16 b/c there are 16 
-  chars in hex. Count each recursion before entry b/c count not preserved once 
-  a recursion is done*/
+
+//char parameter is lower or uppercase x; used by if statement to set a base w/
+//corresponding lower or uppercase letters
 int	ft_printhex(unsigned int n, char c)
 {
 	char	*base;
@@ -24,8 +24,17 @@ int	ft_printhex(unsigned int n, char c)
 	else
 		base = "0123456789ABCDEF";
 	count = 0;
+	//recursive calls divide n by base count until n is a single digit. This
+	//digit, taken as a remainder & used as an index to write from the base, 
+	//gives the char in the largest (leftmost) place. Exiting the last recursion 
+	//& taking another remainder gets the next place, and so on, until remainder 
+	//is taken from original (full) number & whole number has been written. 
+	//Debug a base 10 function if you need a visual reminder
 	if (n >= 16)
 		count += ft_printhex(n / 16, c);
+		//Divide by 16 b/c there are 16 chars in hex
+		//"count +=" takes into account count from deepest level of recursion 
+		//each time a level resolves and gives count as return value
 	count += write(1, &base[n % 16], 1);
 	return (count);
 }

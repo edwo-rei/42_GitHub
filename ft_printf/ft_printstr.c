@@ -12,7 +12,8 @@
 
 #include "ft_printf.h"
 
-//added protection against NULL str ptr, will outpur "(null)" to warn user
+//added protection against NULL str ptr, will output "(null)" to warn user
+//just like established printf() function
 int	ft_printstr(char *str)
 {
 	int	i;
