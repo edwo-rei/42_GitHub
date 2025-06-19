@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 12:19:23 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/06/18 20:49:02 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/06/19 14:11:51 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ static char	*fill_line(int fd, char *buffer, char *chars_read)
 	int	n_read;
 
 	//can't use strjoin if chars_read empty, so initialize if empty
+	//need to use ft_strdup here for free(tmp) below to work
 	if (!chars_read)
-		chars_read = "";//may need to use ft_strdup here to allocate memory
+		chars_read = ft_strdup("");
 	n_read = 1;
-	//n_read will equal 0 when no chars are read b/c nothing left to read. A read 
-	//error will return -1
+	//n_read will equal 0 when no chars are read b/c nothing left to read. 
+	//A read error will return -1
 	while (n_read > 0)
 	{
 		//read buf size into buf & assign return value to n_read
@@ -33,10 +34,15 @@ static char	*fill_line(int fd, char *buffer, char *chars_read)
 		n_read = read(fd, buffer, BUFFER_SIZE);
 		//append null char
 		buffer[n_read] = '\0';
-		//save what's in chars_read to a temp ptr to be able to join it w/ buf
+		//assign tmp ptr to what chars_read is currently pointing at
 		tmp = chars_read;
-		//join what chars_read was holding before to what was read into buf
-		chars_read = ft_strjoin(tmp, buffer);
+		//join what chars_read was holding before to what was read 
+		//into buf - mem is dynamically allocated for return str,
+		//now pointed to by chars_read
+		chars_read = ft_strjoin(chars_read, buffer);
+		//now we can free up what chars_read was pointing to before,
+		//which is still pointed to by tmp
+		free(tmp);
 		//if a \n was encountered in last read, break out of loop
 		if (ft_strchr(buffer, '\n'))
 			break;
@@ -44,7 +50,7 @@ static char	*fill_line(int fd, char *buffer, char *chars_read)
 	return (chars_read);
 }
 
-/*This function takes the line w/ a \n in it, cuts off whatever comes after the \n & returns everything up to the \n*/
+/*This function takes the line w/ a \n in it, cuts off whatever comes after the \n & returns everything after the \n*/
 static char	*clean_line(char *line)
 {
 	char	*left_over;//possible to eliminate this var & use chars_read?
@@ -60,7 +66,8 @@ static char	*clean_line(char *line)
 	//left_over points to chars after \n, allocated dynamically to mem using
 	//ft_substr
 	left_over = ft_substr(line, i + 1, ft_strlen(line) - i);
-	//check to see if only a null char was left to be read, if so, return NULL
+	//check to see if only a null char was left to be read, if so, 
+	//return NULL
 	if (*left_over == '\0')
 	{
 		//since ft_substr used dynamic memory allocation, that mem must 
@@ -103,34 +110,40 @@ char	*get_next_line(int fd)
 	  strings read each time read was called together into a single string
 	  & return the resulting string*/
 	line = fill_line(fd, buffer, chars_read);
+	//free up buffer, now that what is in buffer is also in chars_read
+	free(buffer);
 	//remove chars after \n & assign them to chars_read
 	chars_read = clean_line(line);
 	//check to see if clean_line has set line to point to a null char, if so 
 	//return NULL
 	if (!*line)
+	{
+		//free line b/c one byte will still be used for null char
+		free(line);
 		return (NULL);
+	}
 	//return the chars read up to & including the \n
 	return (line);
 }
 
-/*The main function opens a text file and passes its file descriptor to the 
-  get_next_line function. It also declares a char ptr variable that it assigns the 
-  output of get_next_line to, and the then prints it. The function is called in a loop
-  until the entire text file has been read.*/
+/*The main function opens a text file and passes its file descriptor to the get_next_line function. It also declares a char ptr variable that it assigns the output of get_next_line to, and the then prints it. The function is called in a loop until the entire text file has been read.*/
 int main(void)
 {
 	int		fd;//declare variable of type int called "fd"
 	char	*line_read;//declare char ptr variable "line_read"
-	//Doesn't need to be initialized b/c just a ptr to return val of get_next_line,
-	//which eventually returns a ptr to static var chars_read 
+	//Doesn't need to be initialized b/c just a ptr to return val of 
+	//get_next_line, which eventually returns a ptr to static var chars_read 
 
 	fd = open("text.txt", O_RDONLY);//init fd w/ fd of text.txt
-	//double parentheses around while condition advises the compiler that I'm doing
-	//this on purpose and surpresses the warning about assignment inside a condition
-	while ((line_read = get_next_line(fd)))//must put line_read assignment in here?
+	//double parentheses around while condition advises the compiler that I'm 
+	//doing this on purpose and surpresses the warning about assignment inside
+	//a condition
+	while ((line_read = get_next_line(fd)))
 	{
 		//print line read, no \n needed b/c lines will finish w/ \n
 		printf("%s", line_read);
+		//free memory allocated to line just printed
+		free(line_read);
 	}
 	close(fd);
 }
