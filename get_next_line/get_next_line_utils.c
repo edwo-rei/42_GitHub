@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 19:50:25 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/06/11 19:21:41 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/06/19 18:13:27 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,6 @@ size_t	ft_strlen(const char *s)
 	while (s[i])
 		i++;
 	return (i);
-}
-
-//needed to use ft_substr
-void	*ft_calloc(size_t count, size_t size)
-{
-	unsigned char	*mem;
-	size_t			i;
-
-	i = 0;
-	mem = malloc(count * size);
-	if (mem == 0)
-		return (NULL);
-	while (i < count * size)
-	{
-		mem[i] = 0;
-		i++;
-	}
-	return (mem);
 }
 
 //needed to initialize (& allocate memory for) chars_read when empty in fill_line func
@@ -118,8 +100,8 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 	if (s == 0)
 		return (0);
 	//if start is beyond s, return a valid empty string (""), but not NULL, which typically signals an allocation failure
-	if (start >= ft_strlen(s))
-		return (ft_calloc(1, 1));
+	if (start >= ft_strlen(s))//replaced ft_calloc w/ ft_strdup
+		return (ft_strdup(""));//to avoid too many functions
 	//if len exceeds last char in s, cut len down to max possible to avoid undefined behavior after NULL char is reached
 	if (len > ft_strlen(s + start))
 		len = ft_strlen(s + start);

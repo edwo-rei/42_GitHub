@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 12:19:23 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/06/19 20:43:42 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/06/19 13:05:45 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ static char	*fill_line(int fd, char *buffer, char *chars_read)
 	int	n_read;
 
 	//can't use strjoin if chars_read empty, so initialize if empty
-	//need to use ft_strdup here for free(tmp) below to work
 	if (!chars_read)
-		chars_read = ft_strdup("");
+		chars_read = "";//may need ft_strdup here to allocate memory
 	n_read = 1;
 	//n_read will equal 0 when no chars are read b/c nothing left to read. 
 	//A read error will return -1
@@ -34,15 +33,12 @@ static char	*fill_line(int fd, char *buffer, char *chars_read)
 		n_read = read(fd, buffer, BUFFER_SIZE);
 		//append null char
 		buffer[n_read] = '\0';
-		//assign tmp ptr to what chars_read is currently pointing at
+		//assign what's in chars_read to a temp ptr to be able to join it
+		//w/ buf - IS THIS NECESSARY?
 		tmp = chars_read;
 		//join what chars_read was holding before to what was read 
-		//into buf - mem is dynamically allocated for return str,
-		//now pointed to by chars_read
-		chars_read = ft_strjoin(chars_read, buffer);
-		//now we can free up what chars_read was pointing to before,
-		//which is still pointed to by tmp
-		free(tmp);
+		//into buf
+		chars_read = ft_strjoin(tmp, buffer);
 		//if a \n was encountered in last read, break out of loop
 		if (ft_strchr(buffer, '\n'))
 			break;
@@ -98,39 +94,24 @@ char	*get_next_line(int fd)
 	 are caused*/
 	static char	*chars_read;
 
+	/*protect against invalid fd, buffer size that can't work, & failed read 
+	  (which will return -1 - w/ 0, 0 will return 0 chars read)*/
+	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, 0, 0) < 0)
+		return (NULL);
 	//allocate memory in buffer according to buf size given at compilation
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	/*protect against invalid fd, buffer size that can't work, failed read 
-	  (which will return -1 - w/ 0, 0 will return 0 chars read) & failed
-	  malloc*/
-	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, 0, 0) < 0 || !buffer)
-	{
-		//free buffer & chars read to avoid leaks in case of failed read
-		//(and pass w/ Paco)
-		free(buffer);
-		free(chars_read);
-		//set ptrs to NULL to avoid ptrs that point to invalid memory &
-		//nullify problems caused by a double free
-		buffer = NULL;
-		chars_read = NULL;
+	if (!buffer)
 		return (NULL);
-	}
 	/*read the input indicated by the fd until a \n is found, join the 
 	  strings read each time read was called together into a single string
 	  & return the resulting string*/
 	line = fill_line(fd, buffer, chars_read);
-	//free up buffer, now that what is in buffer is also in chars_read
-	free(buffer);
 	//remove chars after \n & assign them to chars_read
 	chars_read = clean_line(line);
 	//check to see if clean_line has set line to point to a null char, if so 
 	//return NULL
 	if (!*line)
-	{
-		//free line b/c one byte will still be used for null char
-		free(line);
 		return (NULL);
-	}
 	//return the chars read up to & including the \n
 	return (line);
 }
@@ -143,10 +124,7 @@ int main(void)
 	//Doesn't need to be initialized b/c just a ptr to return val of 
 	//get_next_line, which eventually returns a ptr to static var chars_read 
 
-	fd = open("text.txt", O_RDONLY);//init fd w/ fd of text.txt. You can set
-	//to STDIN by making fd = 0, then on the command line using: 
-	//printf OR echo -e "<string>" | <program name, e.g. ./a.out>
-	//OR ./a.out < <file_name>
+	fd = open("text.txt", O_RDONLY);//init fd w/ fd of text.txt
 	//double parentheses around while condition advises the compiler that I'm 
 	//doing this on purpose and surpresses the warning about assignment inside
 	//a condition
@@ -154,8 +132,6 @@ int main(void)
 	{
 		//print line read, no \n needed b/c lines will finish w/ \n
 		printf("%s", line_read);
-		//free memory allocated to line just printed
-		free(line_read);
 	}
 	close(fd);
 }
