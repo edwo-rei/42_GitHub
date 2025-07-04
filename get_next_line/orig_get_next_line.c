@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 12:19:23 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/07/03 18:56:25 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/07/03 18:01:18 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,8 @@ static char	*fill_line(int fd, char *buffer, char *chars_read)
 		//***what if I just read 1 char at a time & checked if it was \n?
 		n_read = read(fd, buffer, BUFFER_SIZE);
 		//must protect against read failing. If it returns -1, free chars_read
-		//& return NULL to get_next_line. This caused 1st failure. Also
-		//checking if chars_read exists protects against a failure of ft_strdup
-		//resulting in chars_read being assigned a NULL ptr
-		if (n_read < 0 || !chars_read)
+		//& return NULL to get_next_line. This caused 1st failure
+		if (n_read < 0)
 		{
 			free(chars_read);
 			return (NULL);
@@ -70,10 +68,6 @@ static char	*clean_line(char *line)
 	int	i;
 
 	i = 0;
-	//check to see if fill_line has returned NULL ptr (failure to read,
-	//probably b/c of bad fd)
-	if (!line)
-		return (NULL);	
 	//loop through line until \n or \0 is encountered
 	while (line[i] && line[i] != '\n')
 		i++;
@@ -142,9 +136,9 @@ char	*get_next_line(int fd)
 	free(buffer);
 	//remove chars after \n & assign them to chars_read
 	chars_read = clean_line(line);
-	//check to see if line has been set to NULL ptr by fill_line or if 
-	//clean_line has set line to point to a null char, if so return NULL
-	if (!line || !*line)
+	//check to see if clean_line has set line to point to a null char, if so 
+	//return NULL
+	if (!*line)
 	{
 		//free line b/c one byte will still be used for null char
 		free(line);
@@ -166,8 +160,9 @@ int main(void)
 	//Doesn't need to be initialized b/c just a ptr to return val of 
 	//get_next_line, which eventually returns a ptr to static var chars_read 
 
-	fd = open("text.txt", O_RDONLY);//init fd w/ fd of text.txt. 
-	//You can set to STDIN by making fd = 0, then on the command line using: 
+	fd = 42;//open("text.txt", O_RDONLY);//init fd w/ fd of text.txt. txt  
+	//files automatically end w/ \n, according to ChatGPT(?). You can set
+	//to STDIN by making fd = 0, then on the command line using: 
 	//printf OR echo -e "<string>" | <program name, e.g. ./a.out>
 	//OR ./a.out < <file_name>
 	//double parentheses around while condition advises the compiler that I'm 
