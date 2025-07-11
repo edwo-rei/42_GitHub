@@ -15,8 +15,8 @@ struct	meal
 //This struct's members are the types of structs listed above
 struct	preferences
 {
-	struct meal	food;
-	struct exercise	exercise;
+	struct meal	_meal;
+	struct exercise	_exercise;
 };
 
 typedef union
@@ -35,7 +35,10 @@ typedef struct
 	const char		*species;
 	int			teeth;
 	int			age;
-	struct preferences	care;
+	struct preferences	_preferences;
+	//named variable w/ same name as the type of structure b/c there's
+	//only 1 of this structure, no sense in giving diff names to same
+	//thing
 	size			length;
 }				phish;
 
@@ -52,10 +55,10 @@ void	label(phish f)
 	printf("Name: %s\nSpecies: %s\n%i years old, %i teeth, %2.2f ft\n", 
 			f.name, f.species, f.age, f.teeth, f.length.ft);
 	printf("Feed with %2.2f lbs of %s and allow to %s for %2.2f hours\n",
-		       	f.care.food.weight, 
-			f.care.food.ingredients, 
-			f.care.exercise.description, 
-			f.care.exercise.duration);
+		       	f._preferences._meal.weight, 
+			f._preferences._meal.ingredients, 
+			f._preferences._exercise.description, 
+			f._preferences._exercise.duration);
 }
 
 //increase fish's age by 1
