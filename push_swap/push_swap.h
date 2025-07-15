@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:16:47 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/07/10 18:34:47 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/07/14 20:47:40 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,11 @@
 //ft_printf header file contains prototypes of my ft_printf functions
 # include "ft_printf/ft_printf.h"
 
+typedef	struct	s_list
+{
+	int		value;
+	struct s_list	*prev;
+	struct s_list	*next;
+}	t_list;
 
 #endif
