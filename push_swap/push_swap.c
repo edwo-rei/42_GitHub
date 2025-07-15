@@ -12,11 +12,32 @@
 
 #include "push_swap.h"
 
+static int	count_words(const char *s, char c)
+{
+	int	wc;
+	int	word;
+
+	wc = 0;
+	word = 0;
+	while (*s)
+	{
+		if (*s != c && word == 0)
+		{
+			word++;
+			wc++;
+		}
+		else if (*s == c)
+			word = 0;
+		s++;
+	}
+	return (wc);
+}
+
 t_list	*new_node(int value)
 {
 	t_list	*node;
 
-	//defensive programming
+	//defensive programming - really necessary?
 	node = NULL;
 	node = malloc(sizeof(t_list));
 	if (!node)
@@ -43,8 +64,14 @@ int	main(int argc, char *argv[])
 	stack_a = NULL;
 	stack_b = NULL;
 	tmp = NULL;
-	//mechanism to deal with an unknown # of args
 	i = 1;
+	if (argc == 2)
+	{
+		argc = count_words(argv[1], ' ');
+		argv = ft_split(argv[1], ' ');
+		i = 0;
+	}
+	//mechanism to deal with an unknown # of args
 	while (i < argc)
 	{
 		//check if string is an int
