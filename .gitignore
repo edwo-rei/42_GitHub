@@ -1,0 +1,7 @@
+*.pdf
+.vscode/
+*git/
+*check*
+*taller*
+nube_actual/
+a.out

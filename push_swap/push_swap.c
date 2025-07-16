@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 11:02:46 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/07/14 20:40:06 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/07/16 20:36:25 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	main(int argc, char *argv[])
 	t_list	*stack_a;
 	t_list	*stack_b;
 	t_list	*tmp;
+	t_list	*new;
 	int		i;
 
 	//guard against no args
@@ -65,6 +66,7 @@ int	main(int argc, char *argv[])
 	stack_b = NULL;
 	tmp = NULL;
 	i = 1;
+	//mechanism to deal with a string of numbers
 	if (argc == 2)
 	{
 		argc = count_words(argv[1], ' ');
@@ -77,11 +79,22 @@ int	main(int argc, char *argv[])
 		//check if string is an int
 		//check if int is a duplicate
 		//allocate memory for each input
-		tmp = new_node(ft_atoi(argv[i]));
-		tmp->next = stack_a;
-		stack_a = tmp;
+		new = new_node(ft_atoi(argv[i]));
+		//add new node w/ each new input to bottom of stack
+		if (stack_a)
+		{
+			tmp = stack_a;
+			while (tmp->next)
+				tmp = tmp->next;
+			tmp->next = new;
+		}
+		else
+			stack_a = new;
+		//tmp->next = stack_a;
+		//stack_a = tmp;
 		i++;
 	}
+	//temp mechanism to display what's in stack_a
 	while (stack_a)
 	{
 		printf("%i\n", stack_a->value);
