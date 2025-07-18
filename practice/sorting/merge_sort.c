@@ -14,6 +14,7 @@ char	*merge(char *s1, char *s2)
 		return (0);
 	while (*s1  || *s2)
 	{
+		//first 2 if no chars remain in one of the strings
 		if (!*s1)
 		{
 			combo[i] = *s2;
@@ -78,6 +79,7 @@ char	*merge_sort(char *str)
 		j++;
 	}
 	right[j] = 0;
+	//to be able to free mem originally allocated to left & right
 	tmp_l = merge_sort(left);
 	tmp_r = merge_sort(right);
 	free(left);
@@ -108,6 +110,7 @@ int	main(int argc, char **argv)
 	}
 	//append null char
 	array[i - 1] = 0;
+	//to be able to free mem originally allocated to array
 	sorted = merge_sort(array);
 	printf("%s", sorted);
 	free(array);
