@@ -33,7 +33,7 @@ static int	count_words(const char *s, char c)
 	return (wc);
 }
 
-t_list	*new_node(int value)
+t_list	*new_node(int value)//change to create_node for clarity?
 {
 	t_list	*node;
 
@@ -52,8 +52,8 @@ int	main(int argc, char *argv[])
 	//declare variables for stacks a * b (circular linked lists?)
 	t_list	*stack_a;
 	t_list	*stack_b;
-	t_list	*tmp;
-	t_list	*new;
+	t_list	*tmp;//change name to ptr to clarify its use?
+	t_list	*new;//change to new_node for clarity?
 	int		i;
 
 	//guard against no args
@@ -83,6 +83,8 @@ int	main(int argc, char *argv[])
 		//add new node w/ each new input to bottom of stack
 		if (stack_a)
 		{
+			//tmp ptr carries us to the node at the end of the list,
+			//then assigns its next field to point to the new node
 			tmp = stack_a;
 			while (tmp->next)
 				tmp = tmp->next;
