@@ -6,12 +6,13 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 11:02:46 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/07/16 20:36:25 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/07/22 18:45:42 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+//count the quantity of #s given in a string
 static int	count_words(const char *s, char c)
 {
 	int	wc;
@@ -33,7 +34,8 @@ static int	count_words(const char *s, char c)
 	return (wc);
 }
 
-t_list	*new_node(int value)//change to create_node for clarity?
+//create new node & set its value to the one given as a parameter
+t_list	*create_node(int value)
 {
 	t_list	*node;
 
@@ -52,19 +54,19 @@ int	main(int argc, char *argv[])
 	//declare variables for stacks a * b (circular linked lists?)
 	t_list	*stack_a;
 	t_list	*stack_b;
-	t_list	*tmp;//change name to ptr to clarify its use?
+	t_list	*ptr;
 	t_list	*new;//change to new_node for clarity?
 	int		i;
 
 	//guard against no args
-	if (argc < 2)
+	if (argc < 2 || (argc == 2 && !argv[1][0]))
 		return (0);
 	//it's good practice to initialize ptrs to NULL to avoid using
 	//uninitialized ptrs & to prevent undefined behavior like accessing
 	//garbage memory ("defensive programming")
 	stack_a = NULL;
 	stack_b = NULL;
-	tmp = NULL;
+	ptr = NULL;
 	i = 1;
 	//mechanism to deal with a string of numbers
 	if (argc == 2)
@@ -79,21 +81,20 @@ int	main(int argc, char *argv[])
 		//check if string is an int
 		//check if int is a duplicate
 		//allocate memory for each input
-		new = new_node(ft_atoi(argv[i]));
+		new = create_node(ft_atoi(argv[i]));
 		//add new node w/ each new input to bottom of stack
 		if (stack_a)
 		{
 			//tmp ptr carries us to the node at the end of the list,
 			//then assigns its next field to point to the new node
-			tmp = stack_a;
-			while (tmp->next)
-				tmp = tmp->next;
-			tmp->next = new;
+			ptr = stack_a;
+			while (ptr->next)
+				ptr = ptr->next;
+			ptr->next = new;
 		}
 		else
 			stack_a = new;
-		//tmp->next = stack_a;
-		//stack_a = tmp;
+		//make circular at later point to facilitate rotation?
 		i++;
 	}
 	//temp mechanism to display what's in stack_a
