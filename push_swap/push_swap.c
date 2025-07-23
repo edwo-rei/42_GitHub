@@ -6,29 +6,29 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 11:02:46 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/07/22 18:45:42 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/07/23 14:05:26 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 //count the quantity of #s given in a string
-static int	count_words(const char *s, char c)
+static int	count_args(const char *s, char c)
 {
 	int	wc;
-	int	word;
+	int	in_arg;
 
 	wc = 0;
-	word = 0;
+	in_arg = 0;
 	while (*s)
 	{
-		if (*s != c && word == 0)
+		if (*s != c && in_arg == 0)
 		{
-			word++;
+			in_arg++;
 			wc++;
 		}
 		else if (*s == c)
-			word = 0;
+			in_arg = 0;
 		s++;
 	}
 	return (wc);
@@ -58,28 +58,34 @@ int	main(int argc, char *argv[])
 	t_list	*new;//change to new_node for clarity?
 	int		i;
 
-	//guard against no args
-	if (argc < 2 || (argc == 2 && !argv[1][0]))
-		return (0);
 	//it's good practice to initialize ptrs to NULL to avoid using
 	//uninitialized ptrs & to prevent undefined behavior like accessing
 	//garbage memory ("defensive programming")
 	stack_a = NULL;
 	stack_b = NULL;
 	ptr = NULL;
-	i = 1;
+	i = 0;
+	//guard against no args
+	if (argc < 2 || (argc == 2 && !argv[1][0]))//2nd condition necessary?
+		return (0);
 	//mechanism to deal with a string of numbers
-	if (argc == 2)
+	else if (argc == 2)
 	{
-		argc = count_words(argv[1], ' ');
+		argc = count_args(argv[1], ' ');
 		argv = ft_split(argv[1], ' ');
-		i = 0;
 	}
+	//remove prog name from argc & argv to make uniform w/ result of split
+	else
+	{
+		argc--;
+		argv++;
+	}
+	//check if string is all ints
+	check_digits(argc, argv);
+	//check if any int is a duplicate
 	//mechanism to deal with an unknown # of args
 	while (i < argc)
 	{
-		//check if string is an int
-		//check if int is a duplicate
 		//allocate memory for each input
 		new = create_node(ft_atoi(argv[i]));
 		//add new node w/ each new input to bottom of stack
