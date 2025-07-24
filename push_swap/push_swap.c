@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
+/*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 11:02:46 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/07/23 14:05:26 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/07/24 13:47:20 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	main(int argc, char *argv[])
 	//check if string is all ints
 	check_digits(argc, argv);
 	//check if any int is a duplicate
+	check_duplicates(argc, argv);
 	//mechanism to deal with an unknown # of args
 	while (i < argc)
 	{
