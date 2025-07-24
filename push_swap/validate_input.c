@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:45:32 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/07/24 14:14:18 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/07/24 20:51:53 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,45 @@ void	check_digits(int argc, char **argv)
 			{
 				if (argv[i][j] < '0' || argv[i][j] > '9')
 					print_error();
-			j++;
+				j++;
 			}
 		}
 		i++;
 	}
 }
 
+/*void	check_digits(int argc, char **argv)
+{
+	int	i;
+
+	i = 0;
+	while (i < argc)
+	{
+		//advance past +/-
+		if (*argv[i] == '+' || *argv[i] == '-')
+			argv[i]++;
+		//if followed by anything besides digit, print Error
+		if (!*argv[i])
+			print_error();
+		//loop thru remaining chars & print error for anything
+		//besides a digit
+		while (*argv[i])
+		{
+			if (*argv[i] < '0' || *argv[i] > '9')
+				print_error();
+			argv[i]++;
+		}
+		i++;
+	}
+}*/
+
 //checks to see if any arg is the same as another arg
-void	check_duplicates(int argc, char **argv)
+/*void	check_doubles(int argc, char **argv)
 {
 	int	i;
 	int	j;
 	int	k;
+	int	l;
 	
 	i = 0;
 	//while there are args
@@ -58,22 +84,88 @@ void	check_duplicates(int argc, char **argv)
 	{
 		j = i + 1;
 		k = 0;
+		l = 0;
 		//while there are args to compare current arg w/
 		while (j < argc)
 		{
-			//if the 2 args are the name & NULL char has been reached
-			if (argv[i][k] == 0 && argv[j][k] == 0)
+			if (argv[i][k] == '+')
+				k++;
+			if (argv[j][l] == '+')
+				l++;
+			//if the 2 args are the same & NULL char has been reached
+			if (argv[i][k] == 0 && argv[j][l] == 0)
 				print_error();
 			//if the 2 args are the same, check next char
-			else if (argv[i][k] == argv[j][k])
+			else if (argv[i][k] == argv[j][l])
+			{
 				k++;
-			//if the 2 args are diff, move to next arg to compare orig arg w/
+				l++;
+			}
+			//if the 2 args are diff, move to next arg 
 			else
 			{
 				k = 0;
+				l = 0;
 				j++;
 			}
 		}
 		i++;
 	}
+}*/
+
+void	check_doubles(int argc, char **argv)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	//while there are args
+	while (i < argc - 1)
+	{
+		j = i + 1;
+		//while there are args to compare current arg w/
+		while (j < argc)
+		{
+			if (*argv[i] == '+')
+				argv[i]++;
+			if (*argv[j] == '+')
+				argv[j]++;
+			//if the 2 args are the same & NULL char has been reached
+			if (*argv[i] == 0 && *argv[j] == 0)
+				print_error();
+			//if the 2 args are the same, check next char
+			else if (*argv[i] == *argv[j])
+			{
+				argv[i]++;
+				argv[j]++;
+			}
+			//if the 2 args are diff, move to next arg
+			else
+				j++;
+		}
+		i++;
+	}
+}
+
+//checks to see if any number is outside the range of integers
+void	check_max(int argc, char **argv)
+{
+	long int	n;
+	int		i;
+
+	i = 0;
+	while (i < argc)
+	{
+		n = long_atoi(argv[i]);
+		if (n < INT_MIN || n > INT_MAX)
+			print_error();
+		i++;
+	}
+}
+
+void	validate_input(int argc, char **argv)
+{
+	check_digits(argc, argv);
+	check_doubles(argc, argv);
+	check_max(argc, argv);
 }

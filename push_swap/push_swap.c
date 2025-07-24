@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 11:02:46 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/07/24 13:47:20 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/07/24 20:05:05 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int	main(int argc, char *argv[])
 	{
 		argc = count_args(argv[1], ' ');
 		argv = ft_split(argv[1], ' ');
+		if (argc < 2)
+			print_error();
 	}
 	//remove prog name from argc & argv to make uniform w/ result of split
 	else
@@ -80,10 +82,9 @@ int	main(int argc, char *argv[])
 		argc--;
 		argv++;
 	}
-	//check if string is all ints
-	check_digits(argc, argv);
-	//check if any int is a duplicate
-	check_duplicates(argc, argv);
+	//check if string is all ints, if any int is a duplicate or is 
+	//outside max range
+	validate_input(argc, argv);
 	//mechanism to deal with an unknown # of args
 	while (i < argc)
 	{
