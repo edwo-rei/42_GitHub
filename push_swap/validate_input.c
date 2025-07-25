@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:45:32 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/07/24 20:51:53 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/07/25 14:45:50 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	check_digits(int argc, char **argv)
 }*/
 
 //checks to see if any arg is the same as another arg
-/*void	check_doubles(int argc, char **argv)
+void	check_doubles(int argc, char **argv)
 {
 	int	i;
 	int	j;
@@ -111,8 +111,11 @@ void	check_digits(int argc, char **argv)
 		}
 		i++;
 	}
-}*/
+}
 
+/*This version of check_doubles moves the adresses pointed to be by the ptrs
+in char **argv & causes problems, even though ChatGPT said ptr location outside
+of a function shouldn't be affected by manipulation w/in a function
 void	check_doubles(int argc, char **argv)
 {
 	int	i;
@@ -145,7 +148,7 @@ void	check_doubles(int argc, char **argv)
 		}
 		i++;
 	}
-}
+}*/
 
 //checks to see if any number is outside the range of integers
 void	check_max(int argc, char **argv)
@@ -165,7 +168,21 @@ void	check_max(int argc, char **argv)
 
 void	validate_input(int argc, char **argv)
 {
+	/*int	i;
+	
+	i = 0;*/
 	check_digits(argc, argv);
+	/*while (i < argc)
+	{
+		printf("i: %i  loc: %p\n", i, argv[i]);
+		i++;
+	}*/
 	check_doubles(argc, argv);
+	/*i = 0;
+	while (i < argc)
+	{
+                printf("i: %i  loc: %p\n", i, argv[i]);
+				i++;
+	}*/
 	check_max(argc, argv);
 }
