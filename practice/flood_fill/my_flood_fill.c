@@ -1,6 +1,7 @@
-/*#include <stdlib.h>
+#include <stdlib.h>
 #include <stdio.h>
-*/
+
+//structure to hold length & width of matrix or starting coordinates
 typedef struct	s_point
 {
 	int	x;
@@ -8,27 +9,33 @@ typedef struct	s_point
 }		t_point;
 
 //recursive function to flood fill an area of a 2D char array
-void	fill(char **tab, t_point size, t_point cur, char target)
+void	fill(char **tab, t_point size, int row, int col, char target)
 {
 	//base condition: check if current row & column are out of bounds
-	if (cur.y < 0 || cur.x < 0 || cur.y >= size.y || cur.x >= size.x 
-			|| tab[cur.y][cur.x] != target)
+	//(>= b/c 1st spot is 0, so last spot is size.x/y - 1)
+	if (row < 0 || col < 0 || row >= size.y || col >= size.x 
+			|| tab[row][col] != target)
 		return;
 	//mark current cell as filled
-	tab[cur.y][cur.x] = 'F';
+	tab[row][col] = 'F';
 	//recursively fill cells above, below, left & right
-	//why (t_point) - casting?
-	fill(tab, size, (t_point){cur.x - 1, cur.y}, target);
-	fill(tab, size, (t_point){cur.x + 1, cur.y}, target);
-	fill(tab, size, (t_point){cur.x, cur.y - 1}, target);
-	fill(tab, size, (t_point){cur.x, cur.y + 1}, target);
+	fill(tab, size, row - 1, col, target);//fill cell above
+	fill(tab, size, row + 1, col, target);//fill cell below
+	fill(tab, size, row, col - 1, target);//fill cell to left
+	fill(tab, size, row, col + 1, target);//fill cell to right
 }
 
+//using as parameters given table/matrix, its size & a starting point,
+//flood fill that table from that starting pt. Must use a diff func for
+//recursion in order to change only row or column by 1 on subsequent
+//iterations
 void	flood_fill(char	**tab, t_point size, t_point begin)
 {
-	fill(tab, size, begin, tab[begin.y][begin.x]);
+	//replace whatever char happens to be at beginning coordinates
+	//& all of that same char that are contiguous
+	fill(tab, size, begin.y, begin.x, tab[begin.y][begin.x]);
 }
-/*
+
 char	**make_area(char **zone, t_point size)
 {
 	int	i;
@@ -37,7 +44,8 @@ char	**make_area(char **zone, t_point size)
 
 	i = 0;
 	j = 0;
-	//dynamically allocate memory for size.y ptrs to char (a matrix)
+	//dynamically allocate memory for size.y ptrs to char (an array of
+	//ptrs)
 	new = malloc(sizeof(char*) * size.y);
 	if (!new)
 		return (NULL);
@@ -47,7 +55,7 @@ char	**make_area(char **zone, t_point size)
 		//allocate memory for each string in matrix
 		new[i] = malloc (size.x + 1);
 		if (!new[i])
-			return (NULL);//(should free prev alloc arrays, but...)
+			return (NULL);//(should free prev alloc arrays, but)
 		//do the following for x columns
 		while (j < size.x)
 		{
@@ -61,6 +69,7 @@ char	**make_area(char **zone, t_point size)
 		j = 0;
 		i++;
 	}
+	//return the ptr to the array of arrays (matrix)
 	return (new);
 }
 
@@ -69,6 +78,8 @@ int	main(void)
 	int	i;
 	//set x of t_point struct to 8, y to 5
 	t_point	size = {8, 5};
+	//set the beginning point from which to flood fill later on
+	t_point begin = {6, 0};
 	//populate matrix zone w/ following 1s & 0s
 	char	*zone[] = {
 		"11111111",
@@ -81,20 +92,22 @@ int	main(void)
 	i = 0;
 	//populate the matrix area so it matches matrix zone
 	char	**area = make_area(zone, size);
-	//print matrix area row by row
+	//print matrix area row by row (# of rows given by y of the size
+	//struct, starting w/ 0 & ending w/ y - 1
 	while (i < size.y)
 	{
 		printf("%s\n", area[i]);
 		i++;
 	}
+	//print a blank line to separate matrices & reset index
 	printf("\n");
 	i = 0;
-	t_point begin = {7, 4};
 	flood_fill(area, size, begin);
+	//print the flood filled matrix
 	while (i < size.y)
 	{
 		printf("%s\n", area[i]);
 		i++;
 	}
 	return (0);
-}*/
+}
