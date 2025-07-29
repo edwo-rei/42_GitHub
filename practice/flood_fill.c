@@ -1,6 +1,6 @@
-#include <stdlib.h>
+/*#include <stdlib.h>
 #include <stdio.h>
-
+*/
 typedef struct	s_point
 {
 	int	x;
@@ -17,6 +17,7 @@ void	fill(char **tab, t_point size, t_point cur, char target)
 	//mark current cell as filled
 	tab[cur.y][cur.x] = 'F';
 	//recursively fill cells above, below, left & right
+	//why (t_point) - casting?
 	fill(tab, size, (t_point){cur.x - 1, cur.y}, target);
 	fill(tab, size, (t_point){cur.x + 1, cur.y}, target);
 	fill(tab, size, (t_point){cur.x, cur.y - 1}, target);
@@ -27,7 +28,7 @@ void	flood_fill(char	**tab, t_point size, t_point begin)
 {
 	fill(tab, size, begin, tab[begin.y][begin.x]);
 }
-
+/*
 char	**make_area(char **zone, t_point size)
 {
 	int	i;
@@ -96,4 +97,4 @@ int	main(void)
 		i++;
 	}
 	return (0);
-}
+}*/
