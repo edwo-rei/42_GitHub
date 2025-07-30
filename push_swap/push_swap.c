@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 11:02:46 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/07/30 13:42:04 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/07/30 18:49:57 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,6 @@ static int	count_args(const char *s, char c)
 	return (wc);
 }
 
-//create new node & set its value to the one given as a parameter
-t_list	*create_node(int value)
-{
-	t_list	*node;
-
-	//defensive programming - really necessary?
-	node = NULL;
-	node = malloc(sizeof(t_list));
-	if (!node)
-		return (NULL);//any reason it'd be necessary to free new?
-	node->value = value;
-	node->next = NULL;
-	return (node);
-}
-
 //check if the #s in the stack are already in ascending order
 int	check_if_sorted(t_list *stack_a)
 {
@@ -71,18 +56,12 @@ int	main(int argc, char *argv[])
 	//declare variables for stacks a * b (circular linked lists?)
 	t_list	*stack_a;
 	t_list	*stack_b;
-	t_list	*current;
-	t_list	*new_node;//change to new_node for clarity?
-	int		i;
 
 	//it's good practice to initialize ptrs to NULL to avoid using
 	//uninitialized ptrs & to prevent undefined behavior like accessing
 	//garbage memory ("defensive programming")
 	stack_a = NULL;
 	stack_b = NULL;
-	current = NULL;
-	new_node = NULL;
-	i = 0;
 	//guard against no args
 	if (argc < 2 || (argc == 2 && !argv[1][0]))//2nd condition necessary?
 		return (0);
@@ -103,26 +82,8 @@ int	main(int argc, char *argv[])
 	//check if string is all ints, if any int is a duplicate or is 
 	//outside max range
 	validate_input(argc, argv);
-	//mechanism to deal with an unknown # of args
-	while (i < argc)
-	{
-		//allocate memory for each input
-		new_node = create_node(ft_atoi(argv[i]));
-		//add new node w/ each new input to bottom of stack
-		if (stack_a)
-		{
-			//tmp ptr carries us to the node at the end of the list,
-			//then assigns its next field to point to the new node
-			current = stack_a;
-			while (current->next)
-				current = current->next;
-			current->next = new_node;
-		}
-		else
-			stack_a = new_node;
-		//make circular at later point to facilitate rotation?
-		i++;
-	}
+	//create a linked list w/ #s given in cmd line args & assign to stack_a
+	stack_a = create_stack(argc, argv);
 	if (check_if_sorted(stack_a))
 		printf("Stack is already sorted\n");
 	else
