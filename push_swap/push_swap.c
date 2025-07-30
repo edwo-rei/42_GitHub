@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 11:02:46 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/07/25 13:59:56 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/07/30 13:42:04 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,30 @@ t_list	*create_node(int value)
 	return (node);
 }
 
+//check if the #s in the stack are already in ascending order
+int	check_if_sorted(t_list *stack_a)
+{
+	t_list	*current;
+
+	//necessary to check that stack_a isn't null?
+	current = stack_a;
+	while (current->next)
+	{
+		if (current->value > current->next->value)
+			return (0);
+		else
+			current = current->next;
+	}
+	return (1);
+}
+
 int	main(int argc, char *argv[])
 {
 	//declare variables for stacks a * b (circular linked lists?)
 	t_list	*stack_a;
 	t_list	*stack_b;
-	t_list	*ptr;
-	t_list	*new;//change to new_node for clarity?
+	t_list	*current;
+	t_list	*new_node;//change to new_node for clarity?
 	int		i;
 
 	//it's good practice to initialize ptrs to NULL to avoid using
@@ -63,7 +80,8 @@ int	main(int argc, char *argv[])
 	//garbage memory ("defensive programming")
 	stack_a = NULL;
 	stack_b = NULL;
-	ptr = NULL;
+	current = NULL;
+	new_node = NULL;
 	i = 0;
 	//guard against no args
 	if (argc < 2 || (argc == 2 && !argv[1][0]))//2nd condition necessary?
@@ -89,22 +107,26 @@ int	main(int argc, char *argv[])
 	while (i < argc)
 	{
 		//allocate memory for each input
-		new = create_node(ft_atoi(argv[i]));
+		new_node = create_node(ft_atoi(argv[i]));
 		//add new node w/ each new input to bottom of stack
 		if (stack_a)
 		{
 			//tmp ptr carries us to the node at the end of the list,
 			//then assigns its next field to point to the new node
-			ptr = stack_a;
-			while (ptr->next)
-				ptr = ptr->next;
-			ptr->next = new;
+			current = stack_a;
+			while (current->next)
+				current = current->next;
+			current->next = new_node;
 		}
 		else
-			stack_a = new;
+			stack_a = new_node;
 		//make circular at later point to facilitate rotation?
 		i++;
 	}
+	if (check_if_sorted(stack_a))
+		printf("Stack is already sorted\n");
+	else
+		printf("Stack is not sorted\n");
 	//temp mechanism to display what's in stack_a
 	while (stack_a)
 	{

@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:45:32 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/07/25 14:45:50 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/07/30 12:33:13 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,15 @@ void	check_doubles(int argc, char **argv)
 		//while there are args to compare current arg w/
 		while (j < argc)
 		{
+			//skip over +s
 			if (argv[i][k] == '+')
 				k++;
 			if (argv[j][l] == '+')
+				l++;
+			//skip over any 0s preceeded by +/- or any kind of space
+			if ((argv[i][k] == '0') && (argv[i][k - 1] < '0'))
+				k++;
+			if ((argv[j][l] == '0') && (argv[j][l - 1] < '0'))
 				l++;
 			//if the 2 args are the same & NULL char has been reached
 			if (argv[i][k] == 0 && argv[j][l] == 0)
@@ -159,7 +165,7 @@ void	check_max(int argc, char **argv)
 	i = 0;
 	while (i < argc)
 	{
-		n = long_atoi(argv[i]);
+		n = ft_atol(argv[i]);
 		if (n < INT_MIN || n > INT_MAX)
 			print_error();
 		i++;

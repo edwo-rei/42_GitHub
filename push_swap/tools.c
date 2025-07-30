@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:33:26 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/07/24 19:29:49 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/07/30 11:46:43 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_error(void)
 	exit(1);
 }
 
-long	long_atoi(const char *str)
+long	ft_atol(const char *str)
 {
 	int	i;
 	long	n;
@@ -51,12 +51,12 @@ int	main(void)
 	char	mix[] = "	-2468tx";
 	char	empty[] = "";
 
-	printf("atoi pos: %i\n", atoi(pos));
-	printf("long_atoi pos: %li\n", long_atoi(pos));
-	printf("atoi neg: %i\n", atoi(neg));
-	printf("long_atoi neg: %li\n", long_atoi(neg));
-	printf("atoi mix: %i\n", atoi(mix));
-	printf("long_atoi mix: %li\n", long_atoi(mix));
-	printf("atoi empty: %i\n", atoi(empty));
-	printf("long_atoi empty: %li\n", long_atoi(empty));
+	printf("atol pos: %li\n", atol(pos));
+	printf("ft_atol pos: %li\n", ft_atol(pos));
+	printf("atol neg: %li\n", atol(neg));
+	printf("ft_atol neg: %li\n", ft_atol(neg));
+	printf("atol mix: %li\n", atol(mix));
+	printf("ft_atol mix: %li\n", ft_atol(mix));
+	printf("atol empty: %li\n", atol(empty));
+	printf("ft_atol empty: %li\n", ft_atol(empty));
 }*/

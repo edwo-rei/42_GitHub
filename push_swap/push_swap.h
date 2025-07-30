@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:16:47 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/07/24 19:59:43 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/07/30 13:53:46 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ typedef	struct	s_list
 }	t_list;
 
 void	print_error(void);
-long	long_atoi(const char *str);
-void	check_digits(int argc, char **argv);
-void	check_duplicates(int argc, char **argv);
-void	check_max(int argc, char **argv);
+long	ft_atol(const char *str);
 void	validate_input(int argc, char **argv);
 
 #endif
