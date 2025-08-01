@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 18:25:37 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/07/30 18:40:17 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/08/01 19:37:43 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,17 @@ t_list	*create_node(int value)
 		return (NULL);//any reason it'd be necessary to free new?
 	node->value = value;
 	node->next = NULL;
+	//node->prev = NULL;
+	/****making a double-linked list will increase steps needed for push, swap, etc.
+	operations because prev will also have to be reassigned. Does having prev
+	provide enough benefits to justify these extra steps?****/
 	return (node);
 }
 
 t_list	*create_stack(int argc, char **argv)
 {
 	//declare variables for stacks a * b (circular linked lists?)
-	t_list	*stack_a;
+	t_list	*stack_a_head;//change to "head_stack_a"?
 	t_list	*current;
 	t_list	*new_node;
 	int		i;
@@ -38,7 +42,7 @@ t_list	*create_stack(int argc, char **argv)
 	//it's good practice to initialize ptrs to NULL to avoid using
 	//uninitialized ptrs & to prevent undefined behavior like accessing
 	//garbage memory ("defensive programming")
-	stack_a = NULL;
+	stack_a_head = NULL;
 	current = NULL;
 	new_node = NULL;
 	i = 0;
@@ -48,19 +52,20 @@ t_list	*create_stack(int argc, char **argv)
 		//allocate memory for each input
 		new_node = create_node(ft_atoi(argv[i]));
 		//add new node w/ each new input to bottom of stack
-		if (!stack_a)
-			stack_a = new_node;
+		if (!stack_a_head)
+			stack_a_head = new_node;
 		else
 		{
 			//tmp ptr carries us to the node at the end of the list,
 			//then assigns its next field to point to the new node
-			current = stack_a;
+			current = stack_a_head;
 			while (current->next)
 				current = current->next;
 			current->next = new_node;
+			//new_node->prev = current; NOT SURE WHETHER TO DOUBLE LINK
 		}
 		//make circular at later point to facilitate rotation?
 		i++;
 	}
-	return (stack_a);
+	return (stack_a_head);
 }

@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 11:02:46 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/07/30 18:49:57 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/08/01 19:38:58 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,14 @@ int	main(int argc, char *argv[])
 	while (stack_a)
 	{
 		printf("%i\n", stack_a->value);
+		if (stack_a->next == NULL)
+			break;
 		stack_a = stack_a->next;
 	}
+	/*temp mechanism to check if list is double-linked
+	while (stack_a)
+	{
+		printf("%i\n", stack_a->value);
+		stack_a = stack_a->prev;
+	} - NOT SURE IF I WANT TO DOUBLE LINK*/
 }
