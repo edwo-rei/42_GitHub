@@ -29,7 +29,7 @@ void	check_digits(int argc, char **argv)
 			//advance past +/-
 			if (argv[i][j] == '+' || argv[i][j] == '-')
 				j++;
-			//if followed by anything besides digit, print Error
+			//if followed by NULL char, print Error
 			if (!argv[i][j])
 				print_error();
 			//loop thru remaining chars & print error for anything
