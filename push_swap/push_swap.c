@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 11:02:46 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/08/01 19:38:58 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/08/08 13:59:24 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	main(int argc, char *argv[])
 	//declare variables for stacks a * b (circular linked lists?)
 	t_list	*stack_a;
 	t_list	*stack_b;
+	t_list	*current;
 
 	//it's good practice to initialize ptrs to NULL to avoid using
 	//uninitialized ptrs & to prevent undefined behavior like accessing
@@ -89,12 +90,35 @@ int	main(int argc, char *argv[])
 	else
 		printf("Stack is not sorted\n");
 	//temp mechanism to display what's in stack_a
-	while (stack_a)
+	current = stack_a;
+	while (current)
 	{
-		printf("%i\n", stack_a->value);
-		if (stack_a->next == NULL)
+		printf("%i\n", current->value);
+		if (!current->next)
 			break;
-		stack_a = stack_a->next;
+		current = current->next;
+	}
+	//temp mechanism to check if operations work
+	push_to_b(&stack_a, &stack_b);
+	push_to_b(&stack_a, &stack_b);
+	push_to_b(&stack_a, &stack_b);
+	reverse_rotate_both(&stack_a, &stack_b);
+	current = stack_a;
+	while (current)
+	{
+		printf("%i\n", current->value);
+		if (!current->next)
+			break;
+		current = current->next;
+	}
+	printf("Stack b:\n");
+	current = stack_b;
+	while (current)
+	{
+		printf("%i\n", current->value);
+		if (current->next == NULL)
+			break;
+		current = current->next;
 	}
 	/*temp mechanism to check if list is double-linked
 	while (stack_a)

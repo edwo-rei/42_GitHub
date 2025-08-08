@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:16:47 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/07/30 18:36:50 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/08/08 13:28:45 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,16 @@ void	print_error(void);
 long	ft_atol(const char *str);
 void	validate_input(int argc, char **argv);
 t_list	*create_stack(int argc, char **argv);
+void	push_to_b(t_list **stack_a, t_list **stack_b);
+void	push_to_a(t_list **stack_a, t_list **stack_b);
+void	swap_a(t_list **stack_a);
+void	swap_b(t_list **stack_b);
+void	swap_both(t_list **stack_a, t_list **stack_b);
+void	rotate_a(t_list **stack_a);
+void	rotate_b(t_list **stack_b);
+void	rotate_both(t_list **stack_a, t_list **stack_b);
+void	reverse_rotate_a(t_list **stack_a);
+void	reverse_rotate_b(t_list **stack_b);
+void	reverse_rotate_both(t_list **stack_a, t_list **stack_b);
 
 #endif
