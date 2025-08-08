@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 11:02:46 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/08/08 13:59:24 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/08/08 17:29:13 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,6 @@ int	main(int argc, char *argv[])
 	validate_input(argc, argv);
 	//create a linked list w/ #s given in cmd line args & assign to stack_a
 	stack_a = create_stack(argc, argv);
-	if (check_if_sorted(stack_a))
-		printf("Stack is already sorted\n");
-	else
-		printf("Stack is not sorted\n");
 	//temp mechanism to display what's in stack_a
 	current = stack_a;
 	while (current)
@@ -98,11 +94,11 @@ int	main(int argc, char *argv[])
 			break;
 		current = current->next;
 	}
-	//temp mechanism to check if operations work
-	push_to_b(&stack_a, &stack_b);
-	push_to_b(&stack_a, &stack_b);
-	push_to_b(&stack_a, &stack_b);
-	reverse_rotate_both(&stack_a, &stack_b);
+	//check if input is already sorted & apply sort algorithm if not
+	if (check_if_sorted(stack_a))
+		printf("Stack is already sorted\n");//MUST DELETE PRINTF
+	else
+		sort(&stack_a, argc);
 	current = stack_a;
 	while (current)
 	{
@@ -111,19 +107,4 @@ int	main(int argc, char *argv[])
 			break;
 		current = current->next;
 	}
-	printf("Stack b:\n");
-	current = stack_b;
-	while (current)
-	{
-		printf("%i\n", current->value);
-		if (current->next == NULL)
-			break;
-		current = current->next;
-	}
-	/*temp mechanism to check if list is double-linked
-	while (stack_a)
-	{
-		printf("%i\n", stack_a->value);
-		stack_a = stack_a->prev;
-	} - NOT SURE IF I WANT TO DOUBLE LINK*/
 }

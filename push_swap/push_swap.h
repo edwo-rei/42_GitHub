@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:16:47 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/08/08 13:28:45 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/08/08 17:11:39 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ void	rotate_both(t_list **stack_a, t_list **stack_b);
 void	reverse_rotate_a(t_list **stack_a);
 void	reverse_rotate_b(t_list **stack_b);
 void	reverse_rotate_both(t_list **stack_a, t_list **stack_b);
+void	sort(t_list **stack_a, int argc);
 
 #endif

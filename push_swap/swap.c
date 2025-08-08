@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+//possible to just use one swap function and put the appropriate stack as param?
 #include "push_swap.h"
 
 //Take top element of stack_a & swap it w/ next element. Parameters are the
