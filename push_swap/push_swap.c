@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 11:02:46 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/08/08 17:29:13 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:29:12 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	main(int argc, char *argv[])
 	if (check_if_sorted(stack_a))
 		printf("Stack is already sorted\n");//MUST DELETE PRINTF
 	else
-		sort(&stack_a, argc);
+		sort(&stack_a, &stack_b, argc);
 	current = stack_a;
 	while (current)
 	{
@@ -107,4 +107,6 @@ int	main(int argc, char *argv[])
 			break;
 		current = current->next;
 	}
+	free_stack(&stack_a);
+	//free_stack(&stack_b);//necessary?
 }

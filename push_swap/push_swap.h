@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:16:47 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/08/08 17:11:39 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/08/11 14:07:40 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ typedef	struct	s_list
 void	print_error(void);
 long	ft_atol(const char *str);
 void	validate_input(int argc, char **argv);
+int	check_if_sorted(t_list *stack_a);
 t_list	*create_stack(int argc, char **argv);
+void	free_stack(t_list **stack);
 void	push_to_b(t_list **stack_a, t_list **stack_b);
 void	push_to_a(t_list **stack_a, t_list **stack_b);
 void	swap_a(t_list **stack_a);
@@ -52,6 +54,6 @@ void	rotate_both(t_list **stack_a, t_list **stack_b);
 void	reverse_rotate_a(t_list **stack_a);
 void	reverse_rotate_b(t_list **stack_b);
 void	reverse_rotate_both(t_list **stack_a, t_list **stack_b);
-void	sort(t_list **stack_a, int argc);
+void	sort(t_list **stack_a, t_list **stack_b, int argc);
 
 #endif

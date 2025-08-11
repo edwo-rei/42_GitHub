@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:33:26 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/07/30 11:46:43 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/08/11 12:30:59 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,3 +60,18 @@ int	main(void)
 	printf("atol empty: %li\n", atol(empty));
 	printf("ft_atol empty: %li\n", ft_atol(empty));
 }*/
+
+//Free stack by freeing top node & all subsequent nodes until none remain
+void	free_stack(t_list **stack)
+{
+	t_list	*current;
+
+	//set current to point to the same node as stack ptr, set stack ptr
+	//to point to next node & free current node
+	while (*stack)
+	{
+		current = *stack;
+		*stack = (*stack)->next;
+		free(current);
+	}
+}
