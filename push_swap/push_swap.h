@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:16:47 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/08/11 14:07:40 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/08/12 12:57:08 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	validate_input(int argc, char **argv);
 int	check_if_sorted(t_list *stack_a);
 t_list	*create_stack(int argc, char **argv);
 void	free_stack(t_list **stack);
+int	find_min(t_list *stack_a);
+void	raise_min(t_list **stack_a, t_list **stack_b, int argc, int min_pos);
 void	push_to_b(t_list **stack_a, t_list **stack_b);
 void	push_to_a(t_list **stack_a, t_list **stack_b);
 void	swap_a(t_list **stack_a);

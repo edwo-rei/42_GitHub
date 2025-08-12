@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 16:59:44 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/08/11 14:19:14 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/08/12 14:07:32 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,36 +35,18 @@ void	sort_3(t_list **stack_a)
 
 void	sort_4(t_list **stack_a, t_list **stack_b)
 {
-	//current will be used to loop thru stack_a
-	t_list	*current;
-	//i will be used to compare values between nodes
 	int	i;
-	int	pos;
 	int	min_pos;
 
-	//set current to head node & i to its value to start
-	current = *stack_a;
-	i = current->value;
-	//pos & min_pos used to ID where min value is & determine min # of
-	//mvmts needed to bring to head of stack_a
-	pos = 0;
-	min_pos = 0;
-	while (current)
-	{
-		//check each node to see if its value is < min encountered
-		//so far. If so, change i to that value
-		if (current->value < i)
-		{
-			i = current->value;
-			min_pos = pos;
-		}
-		current = current->next;
-		pos++;
-	}
+	i = 0;
+	min_pos = find_min(*stack_a);	
 	//rotate until min value is at top of stack_a
 	if (min_pos < 3)
-		while ((*stack_a)->value != i)
+		while (i < min_pos)
+		{
 			rotate_a(stack_a);
+			i++;
+		}
 	else
 		reverse_rotate_a(stack_a);
 	//push node w/ min value to stack_b
@@ -75,6 +57,32 @@ void	sort_4(t_list **stack_a, t_list **stack_b)
 		sort_3(stack_a);
 		//push min back to stack_a, which will now be in ascending order
 		push_to_a(stack_a, stack_b);
+	}
+}
+
+void	sort_5(t_list **stack_a, t_list **stack_b, int argc)
+{
+	int	i;
+	int	min_pos;
+
+	i = argc;
+	//ID node w/ min value
+	while (i > 3 && (!(check_if_sorted(*stack_a))))
+	{
+		min_pos = find_min(*stack_a);
+		//rotate until min value is at top of stack_a
+		raise_min(stack_a, stack_b, i, min_pos);
+		//push node w/ min value to stack_b
+		push_to_b(stack_a, stack_b);
+		i--;
+	}
+	if (!(check_if_sorted(*stack_a)))
+		sort_3(stack_a);
+	while (i < argc)
+	{
+		//push min back to stack_a, which will now be in ascending order
+		push_to_a(stack_a, stack_b);
+		i++;
 	}
 }
 
@@ -91,4 +99,6 @@ void	sort(t_list **stack_a, t_list **stack_b, int argc)
 		sort_3(stack_a);
 	else if (argc == 4)
 		sort_4(stack_a, stack_b);
+	else if (argc == 5)
+		sort_5(stack_a, stack_b, argc);
 }

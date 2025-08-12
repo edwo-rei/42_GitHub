@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:33:26 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/08/11 12:30:59 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/08/12 12:54:47 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,57 @@ int	main(void)
 	printf("atol empty: %li\n", atol(empty));
 	printf("ft_atol empty: %li\n", ft_atol(empty));
 }*/
+
+int	find_min(t_list *stack_a)
+{
+	//i will be used to compare values between nodes
+	int	i;
+	int	pos;
+	int	min_pos;
+
+	i = stack_a->value;
+	//pos & min_pos used to ID where min value is & determine min # of
+	//mvmts needed to bring to head of stack_a
+	pos = 0;
+	min_pos = 0;
+	while (stack_a)
+	{
+		//check each node to see if its value is < min encountered
+		//so far. If so, change i to that value
+		if (stack_a->value < i)
+		{
+			i = stack_a->value;
+			min_pos = pos;
+		}
+		stack_a = stack_a->next;
+		pos++;
+	}
+	return (min_pos);
+}
+
+void	raise_min(t_list **stack_a, t_list **stack_b, int argc, int min_pos)
+{
+	int	i;
+
+	i = 0;
+	//rotate until min value is at top of stack_a
+	if (min_pos <= argc  / 2)
+	{
+		while (i < min_pos)
+		{
+			rotate_a(stack_a);
+			i++;
+		}
+	}
+	else
+	{
+		while (min_pos + i < argc)
+		{
+			reverse_rotate_a(stack_a);
+			i++;
+		}
+	}
+}
 
 //Free stack by freeing top node & all subsequent nodes until none remain
 void	free_stack(t_list **stack)
