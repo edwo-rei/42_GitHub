@@ -89,7 +89,7 @@ int	main(int argc, char *argv[])
 	current = stack_a;
 	while (current)
 	{
-		printf("%i\n", current->value);
+		//printf("%i\n", current->value);
 		if (!current->next)
 			break;
 		current = current->next;
@@ -102,7 +102,7 @@ int	main(int argc, char *argv[])
 	current = stack_a;
 	while (current)
 	{
-		printf("%i\n", current->value);
+		//printf("%i\n", current->value);
 		if (!current->next)
 			break;
 		current = current->next;

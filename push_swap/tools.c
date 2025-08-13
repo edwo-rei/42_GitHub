@@ -61,7 +61,8 @@ int	main(void)
 	printf("ft_atol empty: %li\n", ft_atol(empty));
 }*/
 
-int	find_min(t_list *stack_a)
+//find node w/ min value & return # of steps away from head
+int	find_min_pos(t_list *stack_a)
 {
 	//i will be used to compare values between nodes
 	int	i;
@@ -94,7 +95,7 @@ void	raise_min(t_list **stack_a, t_list **stack_b, int argc, int min_pos)
 
 	i = 0;
 	//rotate until min value is at top of stack_a
-	if (min_pos <= argc  / 2)
+	if (min_pos <= argc / 2)
 	{
 		while (i < min_pos)
 		{

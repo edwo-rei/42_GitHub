@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:16:47 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/08/12 12:57:08 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/08/13 19:49:55 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,12 @@ typedef	struct	s_list
 void	print_error(void);
 long	ft_atol(const char *str);
 void	validate_input(int argc, char **argv);
-int	check_if_sorted(t_list *stack_a);
+int		check_if_sorted(t_list *stack_a);
 t_list	*create_stack(int argc, char **argv);
+t_list	*go_to_last(t_list *stack);
+int		find_stack_size(t_list *stack);
 void	free_stack(t_list **stack);
-int	find_min(t_list *stack_a);
+int		find_min_pos(t_list *stack_a);
 void	raise_min(t_list **stack_a, t_list **stack_b, int argc, int min_pos);
 void	push_to_b(t_list **stack_a, t_list **stack_b);
 void	push_to_a(t_list **stack_a, t_list **stack_b);
@@ -57,5 +59,7 @@ void	reverse_rotate_a(t_list **stack_a);
 void	reverse_rotate_b(t_list **stack_b);
 void	reverse_rotate_both(t_list **stack_a, t_list **stack_b);
 void	sort(t_list **stack_a, t_list **stack_b, int argc);
+int		find_target_index(t_list *stack, int value);
+int		find_rotations(t_list *stack, int value);
 
 #endif
