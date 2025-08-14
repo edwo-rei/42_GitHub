@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 19:15:18 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/08/14 14:03:42 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/08/14 20:57:30 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,56 @@ int	find_target_index(t_list *stack, int value)
 //find the the # of rotations or reverse_rotations stack_b would need to make
 //so that push_to_b would result in pushed value being in the right pos. My plan
 //is to always have stack_b organized in descending order 
-int	find_rotations_b(t_list *stack, int value)
+int	find_rot_b(t_list *stack, int value)
 {
 	int	stack_size;
 	int	target_index;
 
 	stack_size = find_stack_size(stack);
 	target_index = find_target_index(stack, value);
-	if (target_index == 0)
-		return (0);
-	else if (target_index <= stack_size / 2)
+	//returns + #s for ra & -#s for rra, 0 if already in right pos
+	if (target_index <= stack_size / 2)
 		return (target_index);
 	else
-		return (stack_size - target_index);
+		return ((stack_size - target_index) * -1);
+}
+
+int	find_cost(t_list *stack_a, t_list *stack_b, int index, int value)
+{
+	int	rot_a;
+	int	rot_b;
+	int	stack_size;
+	
+	//find # of rotations to bring current node to top of a
+	stack_size = find_stack_size(stack_a);
+	if (index <= stack_size / 2)
+		rot_a = index;
+	else
+		rot_a = (stack_size - index) * -1;
+	//find # of rotations of b needed for current node to go in right place
+	rot_b = find_rot_b(stack_b, value);
+	//sum those rotations to find total cost of move
+	// - if rot_a * rot_b is pos, they rotate in same direction, so return
+	//   larger of the two
+	if (rot_a * rot_b > 0)
+	{
+		if (ft_abs(rot_a) > ft_abs(rot_b))
+			return (ft_abs(rot_a));
+		else
+			return (ft_abs(rot_b));
+	}
+	//if rot_a * rot_b is neg, they rotate in diff directions, so return the
+	//sum of the rotations in opposite directions
+	else if (rot_a * rot_b < 0)
+		return (ft_abs(rot_a - rot_b));
+	//if rot_a * rot_b = 0, at least one of the two is 0, already in right
+	//pos, so just need to return the other # of rotations - which may also
+	//be 0
+	else
+	{
+		if (rot_a != 0)
+			return (ft_abs(rot_a));
+		else
+			return (ft_abs(rot_b));
+	}
 }

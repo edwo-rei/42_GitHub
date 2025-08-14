@@ -39,6 +39,7 @@ typedef	struct	s_list
 
 void	print_error(void);
 long	ft_atol(const char *str);
+int		ft_abs(int n);
 void	validate_input(int argc, char **argv);
 int		check_if_sorted(t_list *stack_a);
 t_list	*create_stack(int argc, char **argv);
@@ -63,6 +64,7 @@ void	reverse_rotate_b(t_list **stack_b);
 void	reverse_rotate_both(t_list **stack_a, t_list **stack_b);
 void	sort(t_list **stack_a, t_list **stack_b, int argc);
 int		find_target_index(t_list *stack, int value);
-int		find_rotations_b(t_list *stack, int value);
+int		find_rot_b(t_list *stack, int value);
+int		find_cost(t_list *stack_a, t_list *stack_b, int index, int value);
 
 #endif

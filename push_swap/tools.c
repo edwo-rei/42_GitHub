@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 13:33:26 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/08/12 12:54:47 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/08/14 19:01:20 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@ void	print_error(void)
 {
 	write(2, "Error\n", 6);
 	exit(1);
+}
+
+int	ft_abs(int n)
+{
+	if (n < 0)
+		n *= -1;
+	return (n);
 }
 
 long	ft_atol(const char *str)

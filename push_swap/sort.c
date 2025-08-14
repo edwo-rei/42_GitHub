@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 16:59:44 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/08/13 19:00:04 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/08/14 20:10:18 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,24 @@ void	sort_5(t_list **stack_a, t_list **stack_b, int argc)
 void	sort_6_plus(t_list **stack_a, t_list **stack_b, int argc)
 {
 	int	i;
+	int	index;
 	int	min_pos;
+	t_list	*tmp;
 
 	i = argc;
+	index = 0;
 	//push top 2 nodes in stack_a to stack_b
 	push_to_b(stack_a, stack_b);
 	push_to_b(stack_a, stack_b);
-	printf("rotations: %i\n", find_rotations_b(*stack_b, (*stack_a)->value));
+	push_to_b(stack_a, stack_b);
+	tmp = *stack_a;
+	while (tmp)
+	{
+		printf("index: %i - value: %i - cost: %i\n", index, tmp->value,
+			find_cost(*stack_a, *stack_b, index, tmp->value));
+		index++;
+		tmp = tmp->next;
+	}
 	/*ID node w/ min cost to move to stack_b
 	while (i > 3 && (!(check_if_sorted(*stack_a))))
 	{
