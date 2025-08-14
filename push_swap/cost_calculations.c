@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 19:15:18 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/08/13 20:16:28 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/08/14 14:03:42 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,40 +16,63 @@
 int	find_target_index(t_list *stack, int value)
 {
 	int	i;
+	t_list	*last;
 
 	i = 0;
-	//increase index by 1 for each node
-	while (value < stack->value)
+	if (value > find_max_value(stack) || value < find_min_value(stack))
+		return (0);
+	else
 	{
-		stack = stack->next;
-		i++;
+		//if value is less than stack head value, go down the list
+		//until encountering a node value less than value
+		if (value < stack->value)
+		{
+			//increase index by 1 for each node traversed
+			while (value < stack->value)
+			{
+				stack = stack->next;
+				i++;
+			}
+		}
+		//if value is greater than stack head value, check if it less
+	       	//than last node value. If so, return 0, pos is good. Otherwise,
+		//loop thru list while >, then loop thru while <. At end of
+		//2nd loop will be the target index	
+		else
+		{
+			last = go_to_last(stack);
+			if (value < last->value)
+				return (0);
+			while (value > stack->value)
+			{
+				stack = stack->next;
+				i++;
+			}
+			while (value < stack->value)
+			{
+				stack = stack->next;
+				i++;
+			}
+		}
 	}
 	return (i);
 }
 
 
 //find the the # of rotations or reverse_rotations stack_b would need to make
-//so that push_to_b would result in pushed value being in the right pos 
-int	find_rotations(t_list *stack, int value)
+//so that push_to_b would result in pushed value being in the right pos. My plan
+//is to always have stack_b organized in descending order 
+int	find_rotations_b(t_list *stack, int value)
 {
-	int	rotations;
 	int	stack_size;
 	int	target_index;
-	t_list	*last_node;
 
-	last_node = go_to_last(stack);
 	stack_size = find_stack_size(stack);
-	if (value > stack->value)
-		rotations = 0;
-	else if (value < last_node->value)
-		rotations = 1;
+	target_index = find_target_index(stack, value);
+	if (target_index == 0)
+		return (0);
+	else if (target_index <= stack_size / 2)
+		return (target_index);
 	else
-	{
-		target_index = find_target_index(stack);
-		if (target_index < stack_size / 2)
-			rotations = target_index;
-		else
-			rotations = stack_size - target_index;
-	}
-	return (rotations);
+		return (stack_size - target_index);
 }

@@ -45,8 +45,11 @@ t_list	*create_stack(int argc, char **argv);
 t_list	*go_to_last(t_list *stack);
 int		find_stack_size(t_list *stack);
 void	free_stack(t_list **stack);
-int		find_min_pos(t_list *stack_a);
-void	raise_min(t_list **stack_a, t_list **stack_b, int argc, int min_pos);
+int		find_min_value(t_list *stack);
+int		find_max_value(t_list *stack);
+int		find_min_pos(t_list *stack);
+int		find_max_pos(t_list *stack);
+void	raise_min_a(t_list **stack_a, int argc, int min_pos);
 void	push_to_b(t_list **stack_a, t_list **stack_b);
 void	push_to_a(t_list **stack_a, t_list **stack_b);
 void	swap_a(t_list **stack_a);
@@ -60,6 +63,6 @@ void	reverse_rotate_b(t_list **stack_b);
 void	reverse_rotate_both(t_list **stack_a, t_list **stack_b);
 void	sort(t_list **stack_a, t_list **stack_b, int argc);
 int		find_target_index(t_list *stack, int value);
-int		find_rotations(t_list *stack, int value);
+int		find_rotations_b(t_list *stack, int value);
 
 #endif

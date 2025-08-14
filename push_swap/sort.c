@@ -71,7 +71,7 @@ void	sort_5(t_list **stack_a, t_list **stack_b, int argc)
 	{
 		min_pos = find_min_pos(*stack_a);
 		//rotate until min value is at top of stack_a
-		raise_min(stack_a, stack_b, i, min_pos);
+		raise_min_a(stack_a, i, min_pos);
 		//push node w/ min value to stack_b
 		push_to_b(stack_a, stack_b);
 		i--;
@@ -92,7 +92,11 @@ void	sort_6_plus(t_list **stack_a, t_list **stack_b, int argc)
 	int	min_pos;
 
 	i = argc;
-	//ID node w/ min cost to move to stack_b
+	//push top 2 nodes in stack_a to stack_b
+	push_to_b(stack_a, stack_b);
+	push_to_b(stack_a, stack_b);
+	printf("rotations: %i\n", find_rotations_b(*stack_b, (*stack_a)->value));
+	/*ID node w/ min cost to move to stack_b
 	while (i > 3 && (!(check_if_sorted(*stack_a))))
 	{
 		min_pos = find_min_pos(*stack_a);
@@ -109,7 +113,7 @@ void	sort_6_plus(t_list **stack_a, t_list **stack_b, int argc)
 		//push min back to stack_a, which will now be in ascending order
 		push_to_a(stack_a, stack_b);
 		i++;
-	}
+	}*/
 }
 
 // This function decides what sorting method needs to be applied based on the #
@@ -125,6 +129,8 @@ void	sort(t_list **stack_a, t_list **stack_b, int argc)
 		sort_3(stack_a);
 	else if (argc == 4)
 		sort_4(stack_a, stack_b);
-	else if (argc >= 5)
+	else if (argc == 5)
 		sort_5(stack_a, stack_b, argc);
+	else
+		sort_6_plus(stack_a, stack_b, argc);
 }

@@ -62,68 +62,92 @@ int	main(void)
 }*/
 
 //find node w/ min value & return # of steps away from head
-int	find_min_pos(t_list *stack_a)
+int	find_min_pos(t_list *stack)
 {
 	//i will be used to compare values between nodes
 	int	i;
 	int	pos;
 	int	min_pos;
 
-	i = stack_a->value;
+	i = stack->value;
 	//pos & min_pos used to ID where min value is & determine min # of
 	//mvmts needed to bring to head of stack_a
 	pos = 0;
 	min_pos = 0;
-	while (stack_a)
+	while (stack)
 	{
 		//check each node to see if its value is < min encountered
 		//so far. If so, change i to that value
-		if (stack_a->value < i)
+		if (stack->value < i)
 		{
-			i = stack_a->value;
+			i = stack->value;
 			min_pos = pos;
 		}
-		stack_a = stack_a->next;
+		stack = stack->next;
 		pos++;
 	}
 	return (min_pos);
 }
 
-void	raise_min(t_list **stack_a, t_list **stack_b, int argc, int min_pos)
+//find node w/ max value & return # of steps away from head
+int	find_max_pos(t_list *stack)
 {
+	//i will be used to compare values between nodes
 	int	i;
+	int	pos;
+	int	max_pos;
 
-	i = 0;
-	//rotate until min value is at top of stack_a
-	if (min_pos <= argc / 2)
+	i = stack->value;
+	//pos & min_pos used to ID where min value is & determine min # of
+	//mvmts needed to bring to head of stack_a
+	pos = 0;
+	max_pos = 0;
+	while (stack)
 	{
-		while (i < min_pos)
+		//check each node to see if its value is < min encountered
+		//so far. If so, change i to that value
+		if (stack->value > i)
 		{
-			rotate_a(stack_a);
-			i++;
+			i = stack->value;
+			max_pos = pos;
 		}
+		stack = stack->next;
+		pos++;
 	}
-	else
-	{
-		while (min_pos + i < argc)
-		{
-			reverse_rotate_a(stack_a);
-			i++;
-		}
-	}
+	return (max_pos);
 }
 
-//Free stack by freeing top node & all subsequent nodes until none remain
-void	free_stack(t_list **stack)
+//find min value in a stack & return it
+int	find_min_value(t_list *stack)
 {
-	t_list	*current;
+	//i will be used to compare values between nodes
+	int	i;
 
-	//set current to point to the same node as stack ptr, set stack ptr
-	//to point to next node & free current node
-	while (*stack)
+	i = stack->value;
+	while (stack)
 	{
-		current = *stack;
-		*stack = (*stack)->next;
-		free(current);
+		//check each node to see if its value is < min encountered
+		//so far. If so, change i to that value
+		if (stack->value < i)
+			i = stack->value;
+		stack = stack->next;
 	}
+	return (i);
+}
+
+int	find_max_value(t_list *stack)
+{
+	//i will be used to compare values between nodes
+	int	i;
+
+	i = stack->value;
+	while (stack)
+	{
+		//check each node to see if its value is > min encountered
+		//so far. If so, change i to that value
+		if (stack->value > i)
+			i = stack->value;
+		stack = stack->next;
+	}
+	return (i);
 }
