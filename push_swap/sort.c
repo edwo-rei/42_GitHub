@@ -107,6 +107,9 @@ void	sort_6_plus(t_list **stack_a, t_list **stack_b, int argc)
 		index++;
 		tmp = tmp->next;
 	}
+	tmp = *stack_a;
+	min_pos = find_min_cost(tmp, *stack_b);
+	printf("index of node to be pushed: %i\n", min_pos);
 	/*ID node w/ min cost to move to stack_b
 	while (i > 3 && (!(check_if_sorted(*stack_a))))
 	{

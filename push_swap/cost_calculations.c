@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 19:15:18 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/08/14 20:57:30 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/08/15 21:22:26 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,39 @@ int	find_cost(t_list *stack_a, t_list *stack_b, int index, int value)
 		else
 			return (ft_abs(rot_b));
 	}
+}
+
+//find node in stack_a w/ min cost to push to stack_b in proper place
+int	find_min_cost(t_list *stack_a, t_list *stack_b)
+{
+	int	i;
+	int	min_pos;
+	int	cost;
+	int	min_cost;
+	t_list	*tmp;
+
+	i = 0;
+	tmp = stack_a;
+	cost = find_cost(stack_a, stack_b, i, tmp->value);
+	min_cost = cost;
+	min_pos = i;
+	//if the head node requires no maneuvers for a pb to put it in the 
+	//right place, it should just be pushed, so return 0 index
+	if (cost == 0)
+			return (0);
+	//loop thru stack_a saving as min_pos any index for a nod w/ a min cost
+	//less than the previous min cost
+	while (tmp)
+	{
+		cost = find_cost(stack_a, stack_b, i, tmp->value);
+		if (cost < min_cost)
+		{
+			min_cost = cost;
+			min_pos = i;
+		}
+		printf("i: %i cost: %i min_cost: %i min_pos: %i value: %i\n", i, cost, min_cost, min_pos, tmp->value);
+		tmp = tmp->next;
+		i++;
+	}
+	return (min_pos);
 }
