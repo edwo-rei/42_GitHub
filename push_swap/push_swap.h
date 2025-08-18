@@ -67,5 +67,6 @@ int		find_target_index(t_list *stack, int value);
 int		find_rot_b(t_list *stack, int value);
 int		find_cost(t_list *stack_a, t_list *stack_b, int index, int value);
 int		find_min_cost(t_list *stack_a, t_list *stack_b);
+void	position_stacks(t_list **stack_a, t_list **stack_b, int min_pos);
 
 #endif

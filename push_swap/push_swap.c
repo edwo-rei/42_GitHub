@@ -99,14 +99,14 @@ int	main(int argc, char *argv[])
 		printf("Stack is already sorted\n");//MUST DELETE PRINTF
 	else
 		sort(&stack_a, &stack_b, argc);
-	current = stack_a;
+	current = stack_b;
 	while (current)
 	{
-		//printf("%i\n", current->value);
+		printf("%i\n", current->value);
 		if (!current->next)
 			break;
 		current = current->next;
 	}
 	free_stack(&stack_a);
-	//free_stack(&stack_b);//necessary?
+	free_stack(&stack_b);//necessary?
 }

@@ -99,28 +99,21 @@ void	sort_6_plus(t_list **stack_a, t_list **stack_b, int argc)
 	push_to_b(stack_a, stack_b);
 	push_to_b(stack_a, stack_b);
 	push_to_b(stack_a, stack_b);
-	tmp = *stack_a;
-	while (tmp)
-	{
-		printf("index: %i - value: %i - cost: %i\n", index, tmp->value,
-			find_cost(*stack_a, *stack_b, index, tmp->value));
-		index++;
-		tmp = tmp->next;
-	}
-	tmp = *stack_a;
-	min_pos = find_min_cost(tmp, *stack_b);
-	printf("index of node to be pushed: %i\n", min_pos);
-	/*ID node w/ min cost to move to stack_b
+	//min_pos = find_min_cost(*stack_a, *stack_b);
+	//printf("index of node to be pushed: %i\n", min_pos);
+	//ID node w/ min cost to move to stack_b
 	while (i > 3 && (!(check_if_sorted(*stack_a))))
 	{
-		min_pos = find_min_pos(*stack_a);
-		//rotate until min value is at top of stack_a
-		raise_min(stack_a, stack_b, i, min_pos);
+		min_pos = find_min_cost(*stack_a, *stack_b);
+		printf("index of node to be pushed: %i\n", min_pos);
+		//identify most economic way to move stacks a & b into proper pos for pb
+		//execute most economic way of moving stacks a & b into proper pos for pb
+		position_stacks(stack_a, stack_b, min_pos);
 		//push node w/ min value to stack_b
 		push_to_b(stack_a, stack_b);
 		i--;
 	}
-	if (!(check_if_sorted(*stack_a)))
+	/*if (!(check_if_sorted(*stack_a)))
 		sort_3(stack_a);
 	while (i < argc)
 	{

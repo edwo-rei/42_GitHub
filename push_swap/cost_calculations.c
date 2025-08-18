@@ -76,13 +76,15 @@ int	find_rot_b(t_list *stack, int value)
 		return ((stack_size - target_index) * -1);
 }
 
+//find # of movements necessary to rotate stacks a & b into the proper pos to be able
+//to push the right node from stack a to stack b
 int	find_cost(t_list *stack_a, t_list *stack_b, int index, int value)
 {
 	int	rot_a;
 	int	rot_b;
 	int	stack_size;
 	
-	//find # of rotations to bring current node to top of a
+	//find # of rotations to bring current node to top of stack a
 	stack_size = find_stack_size(stack_a);
 	if (index <= stack_size / 2)
 		rot_a = index;
@@ -126,6 +128,8 @@ int	find_min_cost(t_list *stack_a, t_list *stack_b)
 	t_list	*tmp;
 
 	i = 0;
+	//must use tmp ptr in order to maintain correct value of index from head of 
+	//stack_a
 	tmp = stack_a;
 	cost = find_cost(stack_a, stack_b, i, tmp->value);
 	min_cost = cost;
@@ -134,7 +138,7 @@ int	find_min_cost(t_list *stack_a, t_list *stack_b)
 	//right place, it should just be pushed, so return 0 index
 	if (cost == 0)
 			return (0);
-	//loop thru stack_a saving as min_pos any index for a nod w/ a min cost
+	//loop thru stack_a saving as min_pos any index for a node w/ a min cost
 	//less than the previous min cost
 	while (tmp)
 	{
