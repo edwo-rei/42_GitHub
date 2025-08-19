@@ -67,6 +67,31 @@ void	raise_min_a(t_list **stack_a, int argc, int min_pos)
 	}
 }
 
+//raise node w/ max value to the top of the stack
+void	raise_max_b(t_list **stack_b, int stack_size, int target_i)
+{
+	int	i;
+
+	i = 0;
+	//rotate until max value is at top of stack_a
+	if (target_i <= stack_size / 2)
+	{
+		while (i < target_i)
+		{
+			rotate_b(stack_b);
+			i++;
+		}
+	}
+	else
+	{
+		while (target_i + i < stack_size)
+		{
+			reverse_rotate_b(stack_b);
+			i++;
+		}
+	}
+}
+
 //Free stack by freeing top node & all subsequent nodes until none remain
 void	free_stack(t_list **stack)
 {

@@ -86,6 +86,7 @@ void	position_stacks(t_list **stack_a, t_list **stack_b, int min_pos)
 		rot_a = min_pos;
 	else
 		rot_a = (stack_size - min_pos) * -1;
+	tmp = *stack_a;
 	while (min_pos--)
 		tmp = tmp->next;
 	//find # of rotations of b needed for current node to go in right place

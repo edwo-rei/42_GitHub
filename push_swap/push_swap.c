@@ -35,12 +35,12 @@ static int	count_args(const char *s, char c)
 }
 
 //check if the #s in the stack are already in ascending order
-int	check_if_sorted(t_list *stack_a)
+int	check_if_sorted(t_list *stack)
 {
 	t_list	*current;
 
 	//necessary to check that stack_a isn't null?
-	current = stack_a;
+	current = stack;
 	while (current->next)
 	{
 		if (current->value > current->next->value)
@@ -100,6 +100,16 @@ int	main(int argc, char *argv[])
 	else
 		sort(&stack_a, &stack_b, argc);
 	current = stack_b;
+	printf("stack_b\n");
+	while (current)
+	{
+		printf("%i\n", current->value);
+		if (!current->next)
+			break;
+		current = current->next;
+	}
+	current = stack_a;
+	printf("stack_a\n");
 	while (current)
 	{
 		printf("%i\n", current->value);

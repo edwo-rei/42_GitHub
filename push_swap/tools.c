@@ -50,23 +50,6 @@ long	ft_atol(const char *str)
 	}
 	return (n * sign);
 }
-/*
-int	main(void)
-{
-	char	pos[] = "2000247483650";
-	char	neg[] = "-10247483658";
-	char	mix[] = "	-2468tx";
-	char	empty[] = "";
-
-	printf("atol pos: %li\n", atol(pos));
-	printf("ft_atol pos: %li\n", ft_atol(pos));
-	printf("atol neg: %li\n", atol(neg));
-	printf("ft_atol neg: %li\n", ft_atol(neg));
-	printf("atol mix: %li\n", atol(mix));
-	printf("ft_atol mix: %li\n", ft_atol(mix));
-	printf("atol empty: %li\n", atol(empty));
-	printf("ft_atol empty: %li\n", ft_atol(empty));
-}*/
 
 //find node w/ min value & return # of steps away from head
 int	find_min_pos(t_list *stack)

@@ -12,15 +12,63 @@
 
 #include "push_swap.h"
 
-//find the index of the highest # smaller than a given node
-int	find_target_index(t_list *stack, int value)
+//find the index of the smallest # higher than a given node
+int	find_target_index_a(t_list *stack, int value)
 {
 	int	i;
 	t_list	*last;
 
 	i = 0;
+	//if value is new max or min, find index of current min & return it
 	if (value > find_max_value(stack) || value < find_min_value(stack))
-		return (0);
+		return (find_min_pos(stack));
+	else
+	{
+		//if value is greater than stack head value, go down the list
+		//until encountering a node value greater than value
+		if (value > stack->value)
+		{
+			//increase index by 1 for each node traversed
+			while (value > stack->value)
+			{
+				stack = stack->next;
+				i++;
+			}
+		}
+		//if value is less than stack head value, check if it greater
+	    //than last node value. If so, return 0, pos is good. Otherwise,
+		//loop thru list while <, then loop thru while >. At end of
+		//2nd loop will be the target index	
+		else
+		{
+			last = go_to_last(stack);
+			if (value > last->value)
+				return (0);
+			while (value < stack->value)
+			{
+				stack = stack->next;
+				i++;
+			}
+			while (value > stack->value)
+			{
+				stack = stack->next;
+				i++;
+			}
+		}
+	}
+	return (i);
+}
+
+//find the index of the highest # smaller than a given node
+int	find_target_index_b(t_list *stack, int value)
+{
+	int	i;
+	t_list	*last;
+
+	i = 0;
+	//if value is new max or min, find index of current max & return it
+	if (value > find_max_value(stack) || value < find_min_value(stack))
+		return (find_max_pos(stack));
 	else
 	{
 		//if value is less than stack head value, go down the list
@@ -35,7 +83,7 @@ int	find_target_index(t_list *stack, int value)
 			}
 		}
 		//if value is greater than stack head value, check if it less
-	       	//than last node value. If so, return 0, pos is good. Otherwise,
+	    //than last node value. If so, return 0, pos is good. Otherwise,
 		//loop thru list while >, then loop thru while <. At end of
 		//2nd loop will be the target index	
 		else
@@ -58,7 +106,6 @@ int	find_target_index(t_list *stack, int value)
 	return (i);
 }
 
-
 //find the the # of rotations or reverse_rotations stack_b would need to make
 //so that push_to_b would result in pushed value being in the right pos. My plan
 //is to always have stack_b organized in descending order 
@@ -68,7 +115,7 @@ int	find_rot_b(t_list *stack, int value)
 	int	target_index;
 
 	stack_size = find_stack_size(stack);
-	target_index = find_target_index(stack, value);
+	target_index = find_target_index_b(stack, value);
 	//returns + #s for ra & -#s for rra, 0 if already in right pos
 	if (target_index <= stack_size / 2)
 		return (target_index);
@@ -148,7 +195,6 @@ int	find_min_cost(t_list *stack_a, t_list *stack_b)
 			min_cost = cost;
 			min_pos = i;
 		}
-		printf("i: %i cost: %i min_cost: %i min_pos: %i value: %i\n", i, cost, min_cost, min_pos, tmp->value);
 		tmp = tmp->next;
 		i++;
 	}
