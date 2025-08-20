@@ -95,28 +95,17 @@ int	main(int argc, char *argv[])
 		current = current->next;
 	}
 	//check if input is already sorted & apply sort algorithm if not
-	if (check_if_sorted(stack_a))
-		printf("Stack is already sorted\n");//MUST DELETE PRINTF
-	else
+	if (!(check_if_sorted(stack_a)))
 		sort(&stack_a, &stack_b, argc);
-	current = stack_b;
-	printf("stack_b\n");
-	while (current)
-	{
-		printf("%i\n", current->value);
-		if (!current->next)
-			break;
-		current = current->next;
-	}
+	/*print out final stack_a to confirm ascending order
 	current = stack_a;
-	printf("stack_a\n");
 	while (current)
 	{
 		printf("%i\n", current->value);
 		if (!current->next)
 			break;
 		current = current->next;
-	}
+	}*/
 	free_stack(&stack_a);
 	free_stack(&stack_b);//necessary?
 }

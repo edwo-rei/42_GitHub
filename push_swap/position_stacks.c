@@ -77,7 +77,6 @@ void	position_stacks(t_list **stack_a, t_list **stack_b, int min_pos)
 	int	rot_a;
 	int	rot_b;
 	int	stack_size;
-	int	min_pos_value;
 	t_list	*tmp;
 	
 	//find # of rotations to bring current node to top of stack a

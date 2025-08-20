@@ -91,7 +91,6 @@ void	sort_6_plus(t_list **stack_a, t_list **stack_b, int argc)
 	int	stack_size;
 	int	i;
 	int	target_i;
-	t_list	*tmp;
 
 	stack_size = argc;
 	//push top 2 nodes in stack_a to stack_b
@@ -121,22 +120,20 @@ void	sort_6_plus(t_list **stack_a, t_list **stack_b, int argc)
 		sort_3(stack_a);
 	//push min back to stack_a, which will now be in ascending order
 	i = stack_size;
+	//raise the lowest value that is more than the head of stack_b to the top of
+	//stack_a & push the value at top of stack_b to stack_a
 	while (i > 0)
 	{
 		target_i = find_target_index_a(*stack_a, (*stack_b)->value);
 		stack_size = find_stack_size(*stack_a);
-		printf("target_i: %i stack_size: %i\n", target_i, stack_size);
-		//change name of raise_max_b to something more neutral, or replicate
-		//function in a version for stack_a
-		raise_max_b(stack_a, stack_size, target_i); 
+		raise_target_a(stack_a, stack_size, target_i); 
 		push_to_a(stack_a, stack_b);
 		i--;
 	}
 	stack_size = find_stack_size(*stack_a);
 	target_i = find_min_pos(*stack_a);
 	if (!(check_if_sorted(*stack_a)))
-		raise_max_b(stack_a, stack_size, target_i);
-	//change function or name
+		raise_target_a(stack_a, stack_size, target_i);
 }
 
 // This function decides what sorting method needs to be applied based on the #
