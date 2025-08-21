@@ -16,7 +16,6 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <ctype.h>
-# include <bsd/string.h>
 # include <string.h>
 # include <fcntl.h>
 
@@ -56,3 +55,5 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 
 #endif
+
+/* # include <bsd/string.h> */

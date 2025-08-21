@@ -60,6 +60,7 @@ void	sort_4(t_list **stack_a, t_list **stack_b)
 	}
 }
 
+/*unnecessary function b/c sort_5_plus takes care of this situation
 void	sort_5(t_list **stack_a, t_list **stack_b, int argc)
 {
 	int	i;
@@ -84,9 +85,9 @@ void	sort_5(t_list **stack_a, t_list **stack_b, int argc)
 		push_to_a(stack_a, stack_b);
 		i++;
 	}
-}
+}*/
 
-void	sort_6_plus(t_list **stack_a, t_list **stack_b, int argc)
+void	sort_5_plus(t_list **stack_a, t_list **stack_b, int argc)
 {
 	int	stack_size;
 	int	i;
@@ -149,8 +150,8 @@ void	sort(t_list **stack_a, t_list **stack_b, int argc)
 		sort_3(stack_a);
 	else if (argc == 4)
 		sort_4(stack_a, stack_b);
-	else if (argc == 5)
-		sort_5(stack_a, stack_b, argc);
+	/*else if (argc == 5)
+		sort_5(stack_a, stack_b, argc);*/
 	else
-		sort_6_plus(stack_a, stack_b, argc);
+		sort_5_plus(stack_a, stack_b, argc);
 }
