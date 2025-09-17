@@ -24,10 +24,6 @@ t_list	*create_node(int value)
 		return (NULL);//any reason it'd be necessary to free new?
 	node->value = value;
 	node->next = NULL;
-	//node->prev = NULL;
-	/****making a double-linked list will increase steps needed for push, swap, etc.
-	operations because prev will also have to be reassigned. Does having prev
-	provide enough benefits to justify these extra steps?****/
 	return (node);
 }
 
@@ -62,9 +58,7 @@ t_list	*create_stack(int argc, char **argv)
 			while (current->next)
 				current = current->next;
 			current->next = new_node;
-			//new_node->prev = current; NOT SURE WHETHER TO DOUBLE LINK
 		}
-		//make circular at later point to facilitate rotation?
 		i++;
 	}
 	return (stack_a_head);

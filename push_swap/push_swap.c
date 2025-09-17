@@ -53,10 +53,10 @@ int	check_if_sorted(t_list *stack)
 
 int	main(int argc, char *argv[])
 {
-	//declare variables for stacks a * b (circular linked lists?)
+	//declare variables for stacks a * b (singly linked lists - doubly-linked
+	//circular linked lists didn't end up being necessary)
 	t_list	*stack_a;
 	t_list	*stack_b;
-	t_list	*current;
 
 	//it's good practice to initialize ptrs to NULL to avoid using
 	//uninitialized ptrs & to prevent undefined behavior like accessing
@@ -85,27 +85,9 @@ int	main(int argc, char *argv[])
 	validate_input(argc, argv);
 	//create a linked list w/ #s given in cmd line args & assign to stack_a
 	stack_a = create_stack(argc, argv);
-	//temp mechanism to display what's in stack_a
-	current = stack_a;
-	while (current)
-	{
-		//printf("%i\n", current->value);
-		if (!current->next)
-			break;
-		current = current->next;
-	}
 	//check if input is already sorted & apply sort algorithm if not
 	if (!(check_if_sorted(stack_a)))
 		sort(&stack_a, &stack_b, argc);
-	/*print out final stack_a to confirm ascending order
-	current = stack_a;
-	while (current)
-	{
-		printf("%i\n", current->value);
-		if (!current->next)
-			break;
-		current = current->next;
-	}*/
 	free_stack(&stack_a);
 	free_stack(&stack_b);//necessary?
 }

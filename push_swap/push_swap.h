@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:16:47 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/08/13 19:49:55 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/09/16 13:47:00 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@
 /* MY HEADER FILES */
 //libft header file contains the prototypes of my libft functions
 # include "libft/libft.h"
-//ft_printf header file contains prototypes of my ft_printf functions
-# include "ft_printf/ft_printf.h"
 
 typedef	struct	s_list
 {

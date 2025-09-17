@@ -12,6 +12,7 @@
 
 #include "push_swap.h"
 
+//make the first element of stack_a the last, and the second the first
 void	rotate_a(t_list **stack_a)
 {
 	t_list	*tmp;
@@ -55,28 +56,6 @@ void	rotate_b(t_list **stack_b)
 	//register action by writing "rb"
 	write(1, "rb\n", 3);
 }
-/* Alternative working version of rotate_b
-void	rotate_b(t_list **stack_b)
-{
-	t_list	*current;
-
-	if (!*stack_b || !((*stack_b)->next))
-		return;
-	//current points to node at top of stack_b
-	current = *stack_b;
-	//make current point to last node in the list
-	while (current->next)
-		current = current->next;
-	//make last node in list point to top node
-	current->next = *stack_b;
-	//make stack_b point to node that top node was previously pointing at
-	*stack_b = (*stack_b)->next;
-	//set previous top node's next var to point to NULL, making it the
-	//end of the list
-	current->next->next = NULL;
-	//register action by writing "rb"
-	write(1, "rb\n", 3);
-}*/
 
 void	rotate_both(t_list **stack_a, t_list **stack_b)
 {

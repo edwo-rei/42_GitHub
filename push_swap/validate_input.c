@@ -55,7 +55,7 @@ void	check_doubles(int argc, char **argv)
 	int	l;
 	
 	i = 0;
-	//while there are args
+	//while there is an arg followed by at least one other
 	while (i < argc - 1)
 	{
 		j = i + 1;
