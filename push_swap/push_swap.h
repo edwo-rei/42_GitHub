@@ -28,12 +28,12 @@
 //libft header file contains the prototypes of my libft functions
 # include "libft/libft.h"
 
-typedef	struct	s_list
+typedef struct s_list
 {
-	int		value;
+	int				value;
 	struct s_list	*prev;
 	struct s_list	*next;
-}	t_list;
+}			t_list;
 
 void	print_error(void);
 long	ft_atol(const char *str);

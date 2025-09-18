@@ -116,18 +116,3 @@ void	raise_target_a(t_list **stack_a, int stack_size, int target_i)
 		}
 	}
 }
-
-//Free stack by freeing top node & all subsequent nodes until none remain
-void	free_stack(t_list **stack)
-{
-	t_list	*current;
-
-	//set current to point to the same node as stack ptr, set stack ptr
-	//to point to next node & free current node
-	while (*stack)
-	{
-		current = *stack;
-		*stack = (*stack)->next;
-		free(current);
-	}
-}
