@@ -6,7 +6,7 @@
 #    By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/09 19:36:00 by edwo-rei          #+#    #+#              #
-#    Updated: 2025/09/17 14:04:00 by edwo-rei         ###   ########.fr        #
+#    Updated: 2025/09/19 13:06:22 by edwo-rei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ NAME = push_swap ##designates name of output archive file, obligatory
 LIBS = libft/ ##works like this but must check example code
 DEPS = push_swap.h ##so if a change is made, .c files will recompile(see below)
 SRC = cost_calculations.c create_stack.c position_stacks.c push.c push_swap.c \
-      	reverse_rotate.c rotate.c sort.c swap.c tools.c tools_1.c validate_input.c
+      	reverse_rotate.c rotate.c sort.c swap.c tools.c tools_1.c tools_2.c \
+	validate_input.c
 OBJ = $(SRC:.c=.o) 
 INCLUDE = -L ./libft -lft
 

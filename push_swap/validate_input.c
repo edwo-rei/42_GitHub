@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 12:45:32 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/07/30 18:54:45 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/09/19 14:16:12 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,51 +45,55 @@ void	check_digits(int argc, char **argv)
 	}
 }
 
+//added this func b/c check_doubles was too long. It compares 2 args after skipping
+//+s & 0s
+int	compare_args(char *i, char *j)
+{
+	int	k;
+	int	l;
+
+	k = 0;
+	l = 0;
+	//skip over +s
+	if (i[k] == '+')
+		k++;
+	if (j[l] == '+')
+		l++;
+	if (i[k] == '-' && j[l] == '-')
+	{
+		k++;
+		l++;
+	}
+	//skip over any 0s preceeding digits
+	while (i[k] == '0')
+		k++;
+	while (j[l] == '0')
+		l++;
+	//loop thru digits as long as they're equal & return TRUE if equal to end
+	while (i[k] && j[l])
+		if (i[k++] != j[l++])
+			return (0);
+	return (i[k] == 0 && j[l] == 0);
+}
 
 //checks to see if any arg is the same as another arg
 void	check_doubles(int argc, char **argv)
 {
 	int	i;
 	int	j;
-	int	k;
-	int	l;
 	
 	i = 0;
 	//while there is an arg followed by at least one other
 	while (i < argc - 1)
 	{
 		j = i + 1;
-		k = 0;
-		l = 0;
 		//while there are args to compare current arg w/
 		while (j < argc)
 		{
-			//skip over +s
-			if (argv[i][k] == '+')
-				k++;
-			if (argv[j][l] == '+')
-				l++;
-			//skip over any 0s preceeded by +/- or any kind of space
-			if ((argv[i][k] == '0') && (argv[i][k - 1] < '0'))
-				k++;
-			if ((argv[j][l] == '0') && (argv[j][l - 1] < '0'))
-				l++;
-			//if the 2 args are the same & NULL char has been reached
-			if (argv[i][k] == 0 && argv[j][l] == 0)
+			//compare args i & j, after +s & 0s
+			if (compare_args(argv[i], argv[j]))
 				print_error();
-			//if the 2 args are the same, check next char
-			else if (argv[i][k] == argv[j][l])
-			{
-				k++;
-				l++;
-			}
-			//if the 2 args are diff, move to next arg 
-			else
-			{
-				k = 0;
-				l = 0;
-				j++;
-			}
+			j++;
 		}
 		i++;
 	}
