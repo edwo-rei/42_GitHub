@@ -51,6 +51,15 @@ long	ft_atol(const char *str)
 	return (n * sign);
 }
 
+//return # of rot or rev. rotations based on where the target index is
+int	rot_or_revrot(int index, int stack_size)
+{
+	if (index <= stack_size / 2)
+		return (index);
+	else
+		return ((stack_size - index) * -1);
+}
+
 //Free stack by freeing top node & all subsequent nodes until none remain
 void	free_stack(t_list **stack)
 {

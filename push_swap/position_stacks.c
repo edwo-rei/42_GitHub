@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 12:55:21 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/08/18 15:01:00 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/09/23 13:51:08 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,31 @@ void	efficient_rev_rot(t_list **stack_a, t_list **stack_b, int rot_a, int rot_b)
 			reverse_rotate_both(stack_a, stack_b);
 }
 
+//auxiliary function carrying out rotations when stacks are not both pos or neg
+void	pos_stacks_aux(t_list **stack_a, t_list **stack_b, int rot_a, int rot_b)
+{
+	while (rot_a > 0)
+	{
+		rotate_a(stack_a);
+		rot_a--;
+	}
+	while (rot_a < 0)
+	{
+		reverse_rotate_a(stack_a);
+		rot_a++;
+	}
+	while (rot_b > 0)
+	{
+		rotate_b(stack_b);
+		rot_b--;
+	}
+	while (rot_b < 0)
+	{
+		reverse_rotate_b(stack_b);
+		rot_b++;
+	}
+}
+
 //ID & execute # of movements necessary to rotate stacks a & b into pos to be 
 //able to push the right node from stack a to stack b
 void	position_stacks(t_list **stack_a, t_list **stack_b, int min_pos)
@@ -81,10 +106,7 @@ void	position_stacks(t_list **stack_a, t_list **stack_b, int min_pos)
 	
 	//find # of rotations to bring current node to top of stack a
 	stack_size = find_stack_size(*stack_a);
-	if (min_pos <= stack_size / 2)
-		rot_a = min_pos;
-	else
-		rot_a = (stack_size - min_pos) * -1;
+	rot_a = rot_or_revrot(min_pos, stack_size);
 	tmp = *stack_a;
 	while (min_pos--)
 		tmp = tmp->next;
@@ -93,41 +115,14 @@ void	position_stacks(t_list **stack_a, t_list **stack_b, int min_pos)
 	//indicate what should be done in all possible scenarios
 	// - if rot_a & rot_b are pos, they both rotate, so rotate both the
 	//   smaller of the two
-	if (rot_a > 0 && rot_b > 0)
-		efficient_rot(stack_a, stack_b, rot_a, rot_b);
-	//if rot_a & rot_b are both neg, they both reverse rotate
-	else if (rot_a < 0 && rot_b < 0)
-		efficient_rev_rot(stack_a, stack_b, rot_a, rot_b);
-	else if (rot_a > 0 && rot_b < 0)
+	if (rot_a * rot_b > 0)
 	{
-		while (rot_a--)
-				rotate_a(stack_a);
-		while (rot_b++)
-			reverse_rotate_b(stack_b);
+		if (rot_a > 0 && rot_b > 0)
+			efficient_rot(stack_a, stack_b, rot_a, rot_b);
+		//if rot_a & rot_b are both neg, they both reverse rotate
+		else if (rot_a < 0 && rot_b < 0)
+			efficient_rev_rot(stack_a, stack_b, rot_a, rot_b);
 	}
-	else if (rot_a < 0 && rot_b > 0)
-	{
-		while (rot_a++)
-				reverse_rotate_a(stack_a);
-		while (rot_b--)
-				rotate_b(stack_b);
-	}
-	//if rot_a * rot_b = 0, at least one of the two is 0, already in right
-	//pos, so just need to return the other # of rotations - which may also
-	//be 0
 	else
-	{
-		if (rot_a > 0)
-			while (rot_a--)
-				rotate_a(stack_a);
-		else if (rot_a < 0)
-			while (rot_a++)
-				reverse_rotate_a(stack_a);
-		else if (rot_b > 0)
-			while (rot_b--)
-				rotate_b(stack_b);
-		else if (rot_b < 0)
-			while (rot_b++)
-				reverse_rotate_b(stack_b);
-	}
+		pos_stacks_aux(stack_a, stack_b, rot_a, rot_b);
 }

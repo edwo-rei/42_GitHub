@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 16:59:44 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/08/14 20:10:18 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/09/22 11:31:49 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,29 +60,32 @@ void	sort_4(t_list **stack_a, t_list **stack_b)
 	}
 }
 
+//ID node w/ min cost to move to stack_b & push it until only 3 remain
+void	sort_to_b(t_list **stack_a, t_list **stack_b, int stack_size)
+{
+	int	target_i;
+
+	while (stack_size > 3 && (!(check_if_sorted(*stack_a))))
+	{
+		target_i = find_min_cost(*stack_a, *stack_b);
+		//identify most econ way to move stacks into proper pos for pb
+		//execute most economic way of moving stacks into proper pos
+		position_stacks(stack_a, stack_b, target_i);
+		//push node w/ min value to stack_b
+		push_to_b(stack_a, stack_b);
+		stack_size--;
+	}
+}
+
 void	sort_5_plus(t_list **stack_a, t_list **stack_b, int argc)
 {
 	int	stack_size;
 	int	i;
 	int	target_i;
 
-	stack_size = argc;
-	//push top 2 nodes in stack_a to stack_b
-	push_to_b(stack_a, stack_b);
-	stack_size--;
-	push_to_b(stack_a, stack_b);
-	stack_size--;
-	//ID node w/ min cost to move to stack_b
-	while (stack_size > 3 && (!(check_if_sorted(*stack_a))))
-	{
-		target_i = find_min_cost(*stack_a, *stack_b);
-		//identify most economic way to move stacks a & b into proper pos for pb
-		//execute most economic way of moving stacks a & b into proper pos for pb
-		position_stacks(stack_a, stack_b, target_i);
-		//push node w/ min value to stack_b
-		push_to_b(stack_a, stack_b);
-		stack_size--;
-	}
+	//account for 2 nodes pushed to b
+	stack_size = argc - 2;
+	sort_to_b(stack_a, stack_b, stack_size);	
 	//once all but 3 nodes are in stack_b, rotate it until max value is at top
 	stack_size = find_stack_size(*stack_b);
 	target_i = find_max_pos(*stack_b);
@@ -122,5 +125,10 @@ void	sort(t_list **stack_a, t_list **stack_b, int argc)
 	else if (argc == 4)
 		sort_4(stack_a, stack_b);
 	else
+	{
+		//push top 2 nodes in stack_a to stack_b
+		push_to_b(stack_a, stack_b);
+		push_to_b(stack_a, stack_b);
 		sort_5_plus(stack_a, stack_b, argc);
+	}
 }
