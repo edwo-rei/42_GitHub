@@ -15,29 +15,29 @@
 // Checks to make sure each char in each arg is a pos or neg #. Done w/ 2 index
 // vars b/c moving the argv ptr (i.e., *argv[i]++) caused my test prog to show 
 //all 0s.
-void	check_digits(int argc, char **argv)
+void	check_digits(int count, char **args)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < argc)
+	while (i < count)
 	{
 		j = 0;
-		while (argv[i][j])
+		while (args[i][j])
 		{
 			//advance past +/-
-			if (argv[i][j] == '+' || argv[i][j] == '-')
+			if (args[i][j] == '+' || args[i][j] == '-')
 				j++;
 			//if followed by NULL char, print Error
-			if (!argv[i][j])
-				print_error();
+			if (!args[i][j])
+				print_error(count, args);
 			//loop thru remaining chars & print error for anything
 			//besides a digit
-			while (argv[i][j])
+			while (args[i][j])
 			{
-				if (argv[i][j] < '0' || argv[i][j] > '9')
-					print_error();
+				if (args[i][j] < '0' || args[i][j] > '9')
+					print_error(count, args);
 				j++;
 			}
 		}
@@ -77,22 +77,22 @@ int	compare_args(char *i, char *j)
 }
 
 //checks to see if any arg is the same as another arg
-void	check_doubles(int argc, char **argv)
+void	check_doubles(int count, char **args)
 {
 	int	i;
 	int	j;
 	
 	i = 0;
 	//while there is an arg followed by at least one other
-	while (i < argc - 1)
+	while (i < count - 1)
 	{
 		j = i + 1;
 		//while there are args to compare current arg w/
-		while (j < argc)
+		while (j < count)
 		{
 			//compare args i & j, after +s & 0s
-			if (compare_args(argv[i], argv[j]))
-				print_error();
+			if (compare_args(args[i], args[j]))
+				print_error(count, args);
 			j++;
 		}
 		i++;
@@ -100,24 +100,24 @@ void	check_doubles(int argc, char **argv)
 }
 
 //checks to see if any number is outside the range of integers
-void	check_max(int argc, char **argv)
+void	check_max(int count, char **args)
 {
 	long int	n;
 	int		i;
 
 	i = 0;
-	while (i < argc)
+	while (i < count)
 	{
-		n = ft_atol(argv[i]);
+		n = ft_atol(args[i]);
 		if (n < INT_MIN || n > INT_MAX)
-			print_error();
+			print_error(count, args);
 		i++;
 	}
 }
 
-void	validate_input(int argc, char **argv)
+void	validate_input(int count, char **args)
 {
-	check_digits(argc, argv);
-	check_doubles(argc, argv);
-	check_max(argc, argv);
+	check_digits(count, args);
+	check_doubles(count, args);
+	check_max(count, args);
 }

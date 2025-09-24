@@ -12,6 +12,20 @@
 
 #include "push_swap.h"
 
+//free args matrix if a string used to give args
+void	free_args(int count, char **args)
+{
+	int	i;
+	
+	i = 0;
+	while (i < count)
+	{
+		free(args[i]);
+		i++;
+	}
+	free(args);
+}
+
 //find node w/ min value & return # of steps away from head
 int	find_min_pos(t_list *stack)
 {

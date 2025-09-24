@@ -57,37 +57,42 @@ int	main(int argc, char *argv[])
 	//circular linked lists didn't end up being necessary)
 	t_list	*stack_a;
 	t_list	*stack_b;
+	char	**args;
+	int		count;
 
 	//it's good practice to initialize ptrs to NULL to avoid using
 	//uninitialized ptrs & to prevent undefined behavior like accessing
 	//garbage memory ("defensive programming")
 	stack_a = NULL;
 	stack_b = NULL;
+	args = NULL;
 	//guard against no args
 	if (argc < 2 || (argc == 2 && !argv[1][0]))//2nd condition necessary?
 		return (0);
 	//mechanism to deal with a string of numbers
 	else if (argc == 2)
 	{
-		argc = count_args(argv[1], ' ');
-		argv = ft_split(argv[1], ' ');
-		if (argc < 2)
-			print_error();
+		count = count_args(argv[1], ' ');
+		args = ft_split(argv[1], ' ');
+		if (count < 2 || !args)
+			print_error(count, args);
 	}
 	//remove prog name from argc & argv to make uniform w/ result of split
 	else
 	{
-		argc--;
-		argv++;
+		count = argc - 1;
+		args = argv + 1;
 	}
 	//check if string is all ints, if any int is a duplicate or is 
 	//outside max range
-	validate_input(argc, argv);
+	validate_input(count, args);
 	//create a linked list w/ #s given in cmd line args & assign to stack_a
-	stack_a = create_stack(argc, argv);
+	stack_a = create_stack(count, args);
 	//check if input is already sorted & apply sort algorithm if not
 	if (!(check_if_sorted(stack_a)))
-		sort(&stack_a, &stack_b, argc);
+		sort(&stack_a, &stack_b, count);
 	free_stack(&stack_a);
 	free_stack(&stack_b);//necessary?
+	if (argc == 2)
+		free_args(count, args);
 }

@@ -35,7 +35,7 @@ typedef struct s_list
 	struct s_list	*next;
 }			t_list;
 
-void	print_error(void);
+void	print_error(int count, char **args);
 long	ft_atol(const char *str);
 int		ft_abs(int n);
 void	validate_input(int argc, char **argv);
@@ -44,6 +44,7 @@ t_list	*create_stack(int argc, char **argv);
 t_list	*go_to_last(t_list *stack);
 int		find_stack_size(t_list *stack);
 void	free_stack(t_list **stack);
+void	free_args(int count, char **args);
 int		find_min_value(t_list *stack);
 int		find_max_value(t_list *stack);
 int		find_min_pos(t_list *stack);
