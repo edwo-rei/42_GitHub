@@ -51,6 +51,25 @@ int	check_if_sorted(t_list *stack)
 	return (1);
 }
 
+//function to initialize variables & save lines
+void	init_vars(t_list **stack_a, t_list **stack_b, char ***args, int	*count)
+{
+	//it's good practice to initialize ptrs to NULL to avoid using
+	//uninitialized ptrs & to prevent undefined behavior like accessing
+	//garbage memory ("defensive programming")
+	*stack_a = NULL;
+	*stack_b = NULL;
+	*args = NULL;
+	*count = 0;
+}
+
+//function to set count & args if input != string & to save lines
+void	set_count_args(int argc, int *count, char **argv, char ***args)
+{
+	*count = argc - 1;
+	*args = argv + 1;
+} 
+
 int	main(int argc, char *argv[])
 {
 	//declare variables for stacks a * b (singly linked lists - doubly-linked
@@ -60,32 +79,26 @@ int	main(int argc, char *argv[])
 	char	**args;
 	int		count;
 
-	//it's good practice to initialize ptrs to NULL to avoid using
-	//uninitialized ptrs & to prevent undefined behavior like accessing
-	//garbage memory ("defensive programming")
-	stack_a = NULL;
-	stack_b = NULL;
-	args = NULL;
-	//guard against no args
-	if (argc < 2 || (argc == 2 && !argv[1][0]))//2nd condition necessary?
+	//init all ptrs to NULL
+	init_vars(&stack_a, &stack_b, &args, &count);
+	//If no args, just return to prompt
+	if (argc < 2)
 		return (0);
 	//mechanism to deal with a string of numbers
 	else if (argc == 2)
 	{
 		count = count_args(argv[1], ' ');
 		args = ft_split(argv[1], ' ');
-		if (count < 2 || !args)
-			print_error(count, args);
+		//changed from 2 to 1, b/c just 1 # isn't necessarily an error
+		if (count < 1 || !args)
+			print_error(argc, count, args);
 	}
 	//remove prog name from argc & argv to make uniform w/ result of split
 	else
-	{
-		count = argc - 1;
-		args = argv + 1;
-	}
+		set_count_args(argc, &count, argv, &args);
 	//check if string is all ints, if any int is a duplicate or is 
 	//outside max range
-	validate_input(count, args);
+	validate_input(argc, count, args);
 	//create a linked list w/ #s given in cmd line args & assign to stack_a
 	stack_a = create_stack(count, args);
 	//check if input is already sorted & apply sort algorithm if not

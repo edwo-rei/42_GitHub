@@ -35,10 +35,10 @@ typedef struct s_list
 	struct s_list	*next;
 }			t_list;
 
-void	print_error(int count, char **args);
+void	print_error(int argc, int count, char **args);
 long	ft_atol(const char *str);
 int		ft_abs(int n);
-void	validate_input(int argc, char **argv);
+void	validate_input(int argc, int count, char **args);
 int		check_if_sorted(t_list *stack);
 t_list	*create_stack(int argc, char **argv);
 t_list	*go_to_last(t_list *stack);

@@ -12,10 +12,10 @@
 
 #include "push_swap.h"
 
-void	print_error(int count, char **args)
+void	print_error(int argc, int count, char **args)
 {
 	//free args matrix if it has been alloted by ft_split
-	if (args)
+	if (argc == 2)
 		free_args(count, args);
 	write(2, "Error\n", 6);
 	exit(1);
