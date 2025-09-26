@@ -6,12 +6,12 @@
 #    By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/09 19:36:00 by edwo-rei          #+#    #+#              #
-#    Updated: 2025/09/22 13:26:29 by edwo-rei         ###   ########.fr        #
+#    Updated: 2025/09/26 11:10:20 by edwo-rei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc ##obligatory compiler (cc is set to clang on these machines)
-CFLAGS = -Wall -Wextra -Werror ##Wall & Wextra enable useful warnings (Wextra is stricter, can cause false pos). Werror treats them as errors & compilation fails
+CFLAGS = -Wall -Wextra -Werror -g ##Wall & Wextra enable useful warnings (Wextra is stricter, can cause false pos). Werror treats them as errors & compilation fails
 NAME = push_swap ##designates name of output archive file, obligatory
 LIBS = libft/ ##works like this but must check example code
 DEPS = push_swap.h ##so if a change is made, .c files will recompile(see below)

@@ -85,6 +85,7 @@ void	sort_5_plus(t_list **stack_a, t_list **stack_b, int argc)
 
 	//account for 2 nodes pushed to b
 	stack_size = argc - 2;
+	//calc min cost of pushing each node to be & push that node
 	sort_to_b(stack_a, stack_b, stack_size);	
 	//once all but 3 nodes are in stack_b, rotate it until max value is at top
 	stack_size = find_stack_size(*stack_b);

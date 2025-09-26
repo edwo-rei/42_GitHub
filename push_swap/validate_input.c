@@ -29,8 +29,8 @@ void	check_digits(int argc, int count, char **args)
 			//advance past +/-
 			if (args[i][j] == '+' || args[i][j] == '-')
 				j++;
-			//if followed by NULL char or just 0, print Error
-			if (!args[i][j] || (args[i][j - 1] == '-' && args[i][j] == '0'
+			//if followed by NULL char or just -0, print Error
+			if (!args[i][j] || (j > 0 && args[i][j - 1] == '-' && args[i][j] == '0'
 				&& (args[i][j + 1] < '0' || args[i][j + 1] > '9')))
 				print_error(argc, count, args);
 			//loop thru remaining chars & print error for anything

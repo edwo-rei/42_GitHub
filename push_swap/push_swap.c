@@ -93,7 +93,7 @@ int	main(int argc, char *argv[])
 		if (count < 1 || !args)
 			print_error(argc, count, args);
 	}
-	//remove prog name from argc & argv to make uniform w/ result of split
+	//set count & args if not input as a string
 	else
 		set_count_args(argc, &count, argv, &args);
 	//check if string is all ints, if any int is a duplicate or is 
