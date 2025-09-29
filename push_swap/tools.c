@@ -63,13 +63,13 @@ int	find_max_pos(t_list *stack)
 	int	max_pos;
 
 	i = stack->value;
-	//pos & min_pos used to ID where min value is & determine min # of
+	//pos & min_pos used to ID where max value is & determine min # of
 	//mvmts needed to bring to head of stack_a
 	pos = 0;
 	max_pos = 0;
 	while (stack)
 	{
-		//check each node to see if its value is < min encountered
+		//check each node to see if its value is > min encountered
 		//so far. If so, change i to that value
 		if (stack->value > i)
 		{
