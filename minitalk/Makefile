@@ -6,7 +6,7 @@
 #    By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/30 14:05:16 by edwo-rei          #+#    #+#              #
-#    Updated: 2025/10/02 13:03:38 by edwo-rei         ###   ########.fr        #
+#    Updated: 2025/10/02 13:13:34 by edwo-rei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,8 +62,7 @@ clean:
 ## previously, clean was a dependency of fclean, but that led to rm -f *.o being
 ## executed twice on libft/ & printf/, so changed it
 fclean:
-	rm  -f *.o
-	rm -f $(NAME) server client
+	rm  -f *.o server client
 	make fclean -C libft/
 	make fclean -C ft_printf/
 
