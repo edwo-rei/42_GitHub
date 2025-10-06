@@ -19,7 +19,7 @@ void	send_sig(int pid, char c)
 	//char to the right
 	int	i;
 
-	//start with the MSB
+	//start with the most signficant bit (MSB)
 	i = 7;
 	while (i >= 0)
 	{
