@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+        */
+/*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 13:42:05 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/09/30 13:52:16 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/09/30 14:20:10 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 /* LIBRARIES */
 //stdlib contains malloc, free & exit
 # include <stdlib.h>
-//unistd library contains write
+//unistd library contains write, getpid & pause
 # include <unistd.h>
 //stdio library contains printf, which I'll use for testing
 # include <stdio.h>
