@@ -42,7 +42,8 @@ void	sig_handler(int signum, siginfo_t *signal_info, void *context)
 		byte = 0;
 	}
 	//send a sig back to sending process to acknowledge reception, using
-	//the si_pid var in the siginfo_t struct
+	//the si_pid var in the siginfo_t struct. Moving this down to end of 
+	//func solved occasional print problems
 	kill(signal_info->si_pid, SIGUSR1);
 }
 
