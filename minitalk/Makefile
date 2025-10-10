@@ -6,7 +6,7 @@
 #    By: edwo-rei <edwo-rei@student.42malaga.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/30 14:05:16 by edwo-rei          #+#    #+#              #
-#    Updated: 2025/10/02 13:13:34 by edwo-rei         ###   ########.fr        #
+#    Updated: 2025/10/10 13:19:47 by edwo-rei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 NAME = minitalk
 ## usually designates name of output executable file (but not in this case), obligatory
 
-DEPS = push_swap.h
+DEPS = minitalk.h
 ##so if a change is made, .c files will recompile(see below)
 
 SRC = client.c server.c 

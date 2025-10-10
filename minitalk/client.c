@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 14:01:30 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/10/02 17:36:36 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/10/10 13:24:23 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 volatile sig_atomic_t	g_copy = 0;
 
 //function to handle acknowledgement sig sent by server and change value of 
-//g_acknowledge to 1 when received
+//g_acknowledge to 1 when received.
 void	serv_sig_handler(int signum)
 {
 	(void)signum;
