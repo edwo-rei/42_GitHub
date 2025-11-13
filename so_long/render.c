@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 13:56:33 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/11/13 13:36:23 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/11/13 14:23:39 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,33 +28,9 @@ void	load_sprites(t_mlx_data *data)
 			&data->exit.width, &data->exit.height);
 }
 
-/*loop thru the grid matrix, putting a floor tile in each pos to fill map
-void	draw_base(t_mlx_data *data)
-{
-	//initialize vars for x & y
-	size_t	x;
-	size_t	y;
-
-	//set x & y to 0
-	x = 0;
-	y = 0;
-	while (y < data->map.height * SIZE)
-	{
-		while (x < data->map.width * SIZE)
-		{
-			
-			mlx_put_image_to_window(data->mlx, data->window,
-				data->base.img, x, y);
-			x += SIZE;
-		}
-		x = 0;
-		y += SIZE;
-	}
-}
-*/
 //loop thru the grid matrix, putting the proper image to the window in each 
 //place depending on the char that is in the corresponding grid spot 
-void	draw_map(t_mlx_data *data)
+int	render_map(t_mlx_data *data)
 {
 	//initialize vars for x & y
 	size_t	x;
@@ -89,9 +65,11 @@ void	draw_map(t_mlx_data *data)
 		x = 0;
 		y += SIZE;
 	}
+	return (0);
 }
 
-//draw the player at its current pos
+//move player to new pos if not a wall, print move count, register collect & 
+//close on exit (if all collects have been made)
 void	move_player(t_mlx_data *data, size_t x, size_t y)
 {
 	if (data->map.grid[y][x] != '1')
@@ -111,12 +89,4 @@ void	move_player(t_mlx_data *data, size_t x, size_t y)
 		ft_printf("Game completed in %i moves\n", data->moves);
 		close_window(data);
 	}
-}
-
-int	render_map(t_mlx_data *data)
-{
-	//draw_base(data);
-	draw_map(data);
-	//draw_player(data);
-	return (0);
 }

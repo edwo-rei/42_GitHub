@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 13:43:57 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/11/13 13:30:01 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/11/13 14:22:43 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,4 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(data.mlx, render_map, &data);
 	//create an event loop to keep window open & wait for input
 	mlx_loop(data.mlx);
-
-	// CLEAN UP never actually reached b/c of loop
-	//mlx_destroy_window(data.mlx, data.window);
-	// destroy display
-	//mlx_destroy_display(data.mlx);
-	// free ptr to display struct
-	//free(data.mlx);
 }
