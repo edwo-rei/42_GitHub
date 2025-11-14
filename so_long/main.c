@@ -6,20 +6,38 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 13:43:57 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/11/13 14:22:43 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/11/14 14:30:34 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-//func destroys image, window & display struct, frees ptr to mlx. May need to
-//as if statements to check if ptrs exist
+//func destroys image, window & display structs, frees ptrs to mlx & map grids
 int	close_window(t_mlx_data *data)
 {
-	mlx_destroy_image(data->mlx, data->img_ptr);
-	mlx_destroy_window(data->mlx, data->window);
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
+	if (data->map.grid)
+		free_matrix(&data->map, data->map.grid);
+	if (data->map.check)
+		free_matrix(&data->map, data->map.check);
+	if (data->exit.img)
+		mlx_destroy_image(data->mlx, data->exit.img);
+	if (data->player.img)
+		mlx_destroy_image(data->mlx, data->player.img);
+	if (data->coin.img)
+		mlx_destroy_image(data->mlx, data->coin.img);
+	if (data->wall.img)
+		mlx_destroy_image(data->mlx, data->wall.img);
+	if (data->base.img)
+		mlx_destroy_image(data->mlx, data->base.img);
+	if (data->img_ptr)
+		mlx_destroy_image(data->mlx, data->img_ptr);
+	if (data->window)
+		mlx_destroy_window(data->mlx, data->window);
+	if (data->mlx)
+	{
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+	}
 	exit(0);
 }
 
@@ -48,8 +66,9 @@ int	main(int argc, char **argv)
 	if (argc != 2 || check_map_name(argv[1]))
 		error_msg("Usage: ./so_long folder/map_name.ber");
 	//save the map name as the map path
-	data.map.path = argv[1];
-	data.moves = 0;
+	init_game(&data, argv[1]);
+	//data.map.path = argv[1];
+	//data.moves = 0;
 	//read the data from the map file & save it into a matrix
 	parse_map(&data.map);
 	//once the data is in the matrix, check to see if all map requirements are met

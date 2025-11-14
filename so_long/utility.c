@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 11:51:52 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/11/07 12:23:47 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/11/14 14:31:12 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,41 @@ void	error_msg(char *msg)
 	ft_printf("Error\n");
 	ft_printf("%s\n", msg);
 	exit(1);
+}
+
+void	error_free_maps(t_map *map, char *msg)
+{
+	ft_printf("Error\n");
+	ft_printf("%s\n", msg);
+	if (map->grid)
+		free_matrix(map, map->grid);
+	if (map->check)
+		free_matrix(map, map->check);
+	exit(1);
+}
+
+
+//init game w/ NULL for ptrs to ensure functioning of close_window, set other
+//calues to 0
+void	init_game(t_mlx_data *data, char *path)
+{
+	data->mlx = NULL;
+	data->window = NULL;
+	data->img_ptr = NULL;
+	data->base.img = NULL;
+	data->wall.img = NULL;
+	data->coin.img = NULL;
+	data->player.img = NULL;
+	data->exit.img = NULL;
+	data->map.path = path;
+	data->map.width = 0;
+	data->map.height = 0;
+	data->map.grid = NULL;
+	data->map.check = NULL;
+	data->map.collectibles = 0;
+	data->map.check_collect = 0;
+	data->map.exits = 0;
+	data->moves = 0;
 }
 
 size_t	ft_linelen(const char *s)
@@ -46,10 +81,3 @@ int	check_map_name(char *name)
 	else
 		return (1);
 }
-/*
-int	main(int argc, char **argv)
-{
-	if (argc != 2 || check_map_name(argv[1]))
-			error_msg("Usage: ./so_long map_name.ber");
-	printf("name works\n");
-}*/

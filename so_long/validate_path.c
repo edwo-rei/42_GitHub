@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 13:20:00 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/11/11 13:40:32 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/11/14 14:31:03 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,23 @@ void	free_check(t_map *map)
 		i++;
 	}
 	free(map->check);
-	map->check  = NULL;
+	map->check = NULL;
+}
+
+//func to free mem allocated to check matrix used for validate_path
+void	free_matrix(t_map *map, char **matrix)
+{
+	size_t	i;
+	
+	i = 0;
+	while (i < map->height)
+	{
+		free(matrix[i]);
+		matrix[i] = NULL;
+		i++;
+	}
+	free(matrix);
+	matrix = NULL;
 }
 
 //recursive function to check map for valid paths to all Cs & E from start pos

@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 10:49:58 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/11/13 13:23:06 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/11/14 14:31:50 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,19 @@ typedef struct s_mlx_data
 	int			moves;
 }			t_mlx_data;
 
+void	init_game(t_mlx_data *data, char *path);
 void	error_msg(char *msg);
+void	error_free_maps(t_map *map, char *msg);
 size_t	ft_linelen(const char *s);
 int		check_map_name(char *name);
 void	measure_map(t_map *map);
 void	parse_map(t_map *map);
 void	validate_path(t_map *map, size_t pos_y, size_t pos_x);
 void	free_check(t_map *map);
+void	free_matrix(t_map *map, char **matrix);
 void	load_sprites(t_mlx_data *data);
 int		render_map(t_mlx_data *data);
+int		input_handler(int keysym, t_mlx_data *data);
 void	move_player(t_mlx_data *data, size_t x, size_t y);
 int		close_window(t_mlx_data *data);
 

@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:46:50 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/11/13 13:02:26 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/11/14 14:31:35 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	measure_map(t_map *map)
 	fd = open(map->path, O_RDONLY);
 	if (fd < 0)
 		error_msg("No map found");
-	map->width = 0;
-	map->height = 0;
+	//map->width = 0;
+	//map->height = 0;
 	line_read = get_next_line(fd);
 	map->width = ft_linelen(line_read);
 	while (line_read)
@@ -91,11 +91,11 @@ void	check_walls(t_map *map)
 		{
 			if ((p.y == 0 || p.y == map->height - 1 || p.x == 0
 					|| p.x == map->width - 1) && map->grid[p.y][p.x] != '1')
-				error_msg("Map not enclosed by walls");
+				error_free_maps(map, "Map not enclosed by walls");
 			if (map->grid[p.y][p.x] != '0' && map->grid[p.y][p.x] != '1'
 					&& map->grid[p.y][p.x] != 'P' && map->grid[p.y][p.x] != 'E'
 					&& map->grid[p.y][p.x] != 'C')
-				error_msg("Map contains invalid element");
+				error_free_maps(map, "Map contains invalid element");
 			if (map->grid[p.y][p.x] == 'P')
 			{
 				map->player_pos.x = p.x;
@@ -134,7 +134,7 @@ void	check_grid(t_map *map)
 		i++;
 	}
 	if ((cpe_ct - 11) % 100 != 0 || cpe_ct < 111)
-		error_msg("Map must have 1 exit, 1 start pos & at least 1 collectible");
+		error_free_maps(map, "Map must have 1 exit, 1 start pos & at least 1 collectible");
 	map->collectibles = cpe_ct / 100;
 }
 
@@ -142,8 +142,8 @@ void	check_grid(t_map *map)
 void	parse_map(t_map *map)
 {
 	//define below vars as 0; might make sense to do elsewhere
-	map->check_collect = 0;
-	map->exits = 0;
+	//map->check_collect = 0;
+	//map->exits = 0;
 	measure_map(map);
 	//allocate mem for grid matrix, read map file & record each char
 	fill_grid(map);
@@ -155,7 +155,7 @@ void	parse_map(t_map *map)
 	//free mem allocated to check matrix used for validate_path
 	free_check(map);
 	if (map->exits != 1 || map->collectibles != map->check_collect)
-		error_msg("No valid path");
+		error_free_maps(map, "No valid path");
 	map->collectibles = 0;
 }
 
