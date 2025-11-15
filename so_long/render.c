@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 13:56:33 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/11/13 14:23:39 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/11/15 12:49:51 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,39 +32,53 @@ void	load_sprites(t_mlx_data *data)
 //place depending on the char that is in the corresponding grid spot 
 int	render_map(t_mlx_data *data)
 {
-	//initialize vars for x & y
 	size_t	x;
 	size_t	y;
 
-	//set x & y to 0
 	x = 0;
 	y = 0;
 	while (y < data->map.height * SIZE)
 	{
 		while (x < data->map.width * SIZE)
 		{
-			if ((x / SIZE) == data->map.player_pos.x 
-					&& (y / SIZE) == data->map.player_pos.y)
+			if ((x / SIZE) == data->map.player_pos.x
+				&& (y / SIZE) == data->map.player_pos.y)
 				mlx_put_image_to_window(data->mlx, data->window,
-				data->player.img, x, y);
+					data->player.img, x, y);
 			else if (data->map.grid[y / SIZE][x / SIZE] == '1')
 				mlx_put_image_to_window(data->mlx, data->window,
-				data->wall.img, x, y);
+					data->wall.img, x, y);
 			else if (data->map.grid[y / SIZE][x / SIZE] == '0'
 					|| data->map.grid[y / SIZE][x / SIZE] == 'P')
 				mlx_put_image_to_window(data->mlx, data->window,
-				data->base.img, x, y);
+					data->base.img, x, y);
 			else if (data->map.grid[y / SIZE][x / SIZE] == 'C')
 				mlx_put_image_to_window(data->mlx, data->window,
-				data->coin.img, x, y);
+					data->coin.img, x, y);
 			else if (data->map.grid[y / SIZE][x / SIZE] == 'E')
 				mlx_put_image_to_window(data->mlx, data->window,
-				data->exit.img, x, y);
+					data->exit.img, x, y);
 			x += SIZE;
 		}
 		x = 0;
 		y += SIZE;
 	}
+	return (0);
+}
+
+//func interprets keystrokes & if ESC pressed, cleans up & closes window
+int	input_handler(int keysym, t_mlx_data *data)
+{
+	if (keysym == XK_Escape)
+		close_window(data);
+	else if (keysym == XK_w)
+		move_player(data, data-> map.player_pos.x, data->map.player_pos.y - 1);
+	else if (keysym == XK_s)
+		move_player(data, data-> map.player_pos.x, data->map.player_pos.y + 1);
+	else if (keysym == XK_a)
+		move_player(data, data-> map.player_pos.x - 1, data->map.player_pos.y);
+	else if (keysym == XK_d)
+		move_player(data, data-> map.player_pos.x + 1, data->map.player_pos.y);
 	return (0);
 }
 
@@ -83,7 +97,7 @@ void	move_player(t_mlx_data *data, size_t x, size_t y)
 		data->map.collectibles++;
 		data->map.grid[y][x] = '0';
 	}
-	if ((data->map.grid[y][x] == 'E') 
+	if ((data->map.grid[y][x] == 'E')
 			&& (data->map.collectibles == data->map.check_collect))
 	{
 		ft_printf("Game completed in %i moves\n", data->moves);

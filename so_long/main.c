@@ -6,56 +6,11 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 13:43:57 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/11/14 14:30:34 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/11/15 12:46:06 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-//func destroys image, window & display structs, frees ptrs to mlx & map grids
-int	close_window(t_mlx_data *data)
-{
-	if (data->map.grid)
-		free_matrix(&data->map, data->map.grid);
-	if (data->map.check)
-		free_matrix(&data->map, data->map.check);
-	if (data->exit.img)
-		mlx_destroy_image(data->mlx, data->exit.img);
-	if (data->player.img)
-		mlx_destroy_image(data->mlx, data->player.img);
-	if (data->coin.img)
-		mlx_destroy_image(data->mlx, data->coin.img);
-	if (data->wall.img)
-		mlx_destroy_image(data->mlx, data->wall.img);
-	if (data->base.img)
-		mlx_destroy_image(data->mlx, data->base.img);
-	if (data->img_ptr)
-		mlx_destroy_image(data->mlx, data->img_ptr);
-	if (data->window)
-		mlx_destroy_window(data->mlx, data->window);
-	if (data->mlx)
-	{
-		mlx_destroy_display(data->mlx);
-		free(data->mlx);
-	}
-	exit(0);
-}
-
-//func interprets keystrokes & if ESC pressed, cleans up & closes window
-int	input_handler(int keysym, t_mlx_data *data)
-{
-	if (keysym == XK_Escape)
-		close_window(data);
-	else if (keysym == XK_w)
-		move_player(data, data-> map.player_pos.x, data->map.player_pos.y - 1);
-	else if (keysym == XK_s)
-		move_player(data, data-> map.player_pos.x, data->map.player_pos.y + 1);
-	else if (keysym == XK_a)
-		move_player(data, data-> map.player_pos.x - 1, data->map.player_pos.y);
-	else if (keysym == XK_d)
-		move_player(data, data-> map.player_pos.x + 1, data->map.player_pos.y);
-	return (0);
-}
 
 int	main(int argc, char **argv)
 {

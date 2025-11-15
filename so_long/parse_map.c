@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:46:50 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/11/14 14:31:35 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/11/15 12:35:35 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void	measure_map(t_map *map)
 	fd = open(map->path, O_RDONLY);
 	if (fd < 0)
 		error_msg("No map found");
-	//map->width = 0;
-	//map->height = 0;
 	line_read = get_next_line(fd);
 	map->width = ft_linelen(line_read);
 	while (line_read)
@@ -49,7 +47,9 @@ void	measure_map(t_map *map)
 		line_read = get_next_line(fd);
 	}
 	close(fd);
-	if (map->width + map->height < 8)
+	if (map->width == 0)
+		error_msg("Map is empty");
+	else if (map->width + map->height < 8)
 		error_msg("Map is too small");
 }
 
