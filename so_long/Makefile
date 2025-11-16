@@ -6,14 +6,14 @@
 #    By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/13 10:48:27 by edwo-rei          #+#    #+#              #
-#    Updated: 2025/11/12 14:19:23 by edwo-rei         ###   ########.fr        #
+#    Updated: 2025/11/15 14:55:42 by edwo-rei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 ##obligatory compiler (cc is set to clang on these machines)
 
-CFLAGS = -Wall -Wextra -Werror -g -v
+CFLAGS = -Wall -Wextra -Werror
 ##Wall & Wextra enable useful warnings (Wextra is stricter, can cause false pos). Werror treats them as errors & compilation fails. -g allows line #s to be included w/ error output in terminal but should be removed for turn-in
 
 NAME = so_long
@@ -22,8 +22,8 @@ NAME = so_long
 DEPS = so_long.h
 ##so if a change is made, .c files will recompile(see below)
 
-
-SRC = main.c parse_map.c validate_path.c render.c utility.c
+SRC = $(addprefix src/, main.c parse_map.c validate_path.c render.c utility.c)
+## $(addprefix src/) adds that prefix to all the files listed after
 
 OBJ = $(SRC:.c=.o) 
 
@@ -59,7 +59,7 @@ libft:
 	make -C libft/
 
 clean:
-	rm -f *.o
+	cd src/ && rm -f *.o
 	make clean -C libft/
 	make clean -C gnl/
 	make clean -C ft_printf/
@@ -69,7 +69,8 @@ clean:
 ## executed twice on libft/ & printf/, so changed it
 ## mlx doesn't have an fclean rule
 fclean:
-	rm  -f *.o $(NAME)
+	rm  -f $(NAME)
+	cd src/ && rm -f *.o
 	make fclean -C libft/
 	make fclean -C gnl/
 	make fclean -C ft_printf/

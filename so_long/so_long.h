@@ -6,7 +6,7 @@
 /*   By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 10:49:58 by edwo-rei          #+#    #+#             */
-/*   Updated: 2025/11/14 14:31:50 by edwo-rei         ###   ########.fr       */
+/*   Updated: 2025/11/15 14:33:40 by edwo-rei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define WIN_WI 1000
 # define WIN_HT 1000
 # define WIN_NAME "so_long"
-# define SIZE 64
+# define SZ 64
 
 /* LIBRARIES */
 //stdlib contains malloc, free & exit
@@ -52,7 +52,7 @@ typedef struct s_sprite
 {
 	char	*img;
 	int		width;
-	int		height; 
+	int		height;
 }			t_sprite;
 
 typedef struct s_map
@@ -62,7 +62,7 @@ typedef struct s_map
 	size_t	height;
 	char	**grid;
 	char	**check;
-	t_point	player_pos;
+	t_point	p1;
 	int		collectibles;
 	int		check_collect;
 	int		exits;
@@ -89,6 +89,7 @@ typedef struct s_mlx_data
 }			t_mlx_data;
 
 void	init_game(t_mlx_data *data, char *path);
+void	error_warn(char *msg);
 void	error_msg(char *msg);
 void	error_free_maps(t_map *map, char *msg);
 size_t	ft_linelen(const char *s);
@@ -102,6 +103,6 @@ void	load_sprites(t_mlx_data *data);
 int		render_map(t_mlx_data *data);
 int		input_handler(int keysym, t_mlx_data *data);
 void	move_player(t_mlx_data *data, size_t x, size_t y);
-int		close_window(t_mlx_data *data);
+int		clean_up(t_mlx_data *data);
 
 #endif
