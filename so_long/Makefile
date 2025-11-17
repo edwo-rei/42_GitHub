@@ -6,7 +6,7 @@
 #    By: edwo-rei <edwo-rei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/13 10:48:27 by edwo-rei          #+#    #+#              #
-#    Updated: 2025/11/15 14:55:42 by edwo-rei         ###   ########.fr        #
+#    Updated: 2025/11/17 13:45:12 by edwo-rei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,21 @@ CC = cc
 ##obligatory compiler (cc is set to clang on these machines)
 
 CFLAGS = -Wall -Wextra -Werror
-##Wall & Wextra enable useful warnings (Wextra is stricter, can cause false pos). Werror treats them as errors & compilation fails. -g allows line #s to be included w/ error output in terminal but should be removed for turn-in
+##Wall & Wextra enable useful warnings (Wextra is stricter, can cause false pos). 
+##Werror treats them as errors & compilation fails. -g allows line #s to be 
+##included w/ error output in terminal but should be removed for turn-in
 
 NAME = so_long
 ## usually designates name of output executable file, obligatory
 
 DEPS = so_long.h
 ##so if a change is made, .c files will recompile(see below)
+
+LIBFT = libft/libft.a
+FT_PRINTF = ft_printf/libft_printf.a
+GNL = gnl/libft_gnl.a
+MLX = mlx/libmlx.a
+##macros for archive files for libs used
 
 SRC = $(addprefix src/, main.c parse_map.c validate_path.c render.c utility.c)
 ## $(addprefix src/) adds that prefix to all the files listed after
@@ -35,27 +43,30 @@ INCLUDE = -L ./libft -lft -L ./gnl -lft_gnl -L ./ft_printf -lft_printf -L ./mlx 
 ## first targ defined invoked when typing just "make", program to be built
 all: $(NAME)
 
-## All dependencies needed built in that order w/ this step
+## All dependencies needed built in that order w/ this step. Need to use the archive
+##files to check if they have been built already, not phony targets - which would
+##cause them to get rebuilt each time the make cmd is given, b/c it would not
+##register that those dependencies were already up to date
 ## Must use $(OBJ) and not $< b/c will only compile the 1st obj file (main.o)
-$(NAME): $(OBJ) mlx ft_printf gnl libft
+$(NAME): $(OBJ) $(LIBFT) $(FT_PRINTF) $(GNL) $(MLX)
 	$(CC) $(CFLAGS) $(OBJ) $(INCLUDE) -o $@
 
 ## prereqs (right of targ) must be up to date (account for changes to .h)
 %.o: %.c $(DEPS)
-	 $(CC) $(CFLAGS) -Imlx -c -o $@ $<
+	 $(CC) $(CFLAGS) -c -o $@ $<
 	 ## $@ is target, $< is 1st DEP, -c just makes .o (& not executable). -Imlx adds the directory where mlx.h is locate, MAY NOT BE NECESSARY
 
 ## compile MiniLibX iot use it
-mlx:
+$(MLX):
 	make -C mlx/
 	
-ft_printf:
+$(FT_PRINTF):
 	make -C ft_printf/
 
-gnl:
+$(GNL):
 	make -C gnl/
 	
-libft:
+$(LIBFT):
 	make -C libft/
 
 clean:
@@ -79,4 +90,4 @@ fclean:
 re: fclean all
 
 ##don't generate files, avoid confusion w/ existing
-.PHONY: all mlx ft_printf gnl libft clean fclean re
+.PHONY: all clean fclean re
